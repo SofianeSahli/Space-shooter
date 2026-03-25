@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://bw7w161owec5s"]
+
+[ext_resource type="Texture2D" uid="uid://cie6i2v044mpc" path="res://arts/Backgrounds/Stars/Red/sprite.png" id="1_1ijkt"]
+[ext_resource type="Texture2D" uid="uid://cs17ouw8xfh76" path="res://arts/Backgrounds/Stars/Red/sprite2.png" id="2_42r5v"]
+[ext_resource type="Texture2D" uid="uid://dtv2bumgsae1h" path="res://arts/Backgrounds/Stars/Red/sprite3.png" id="3_0bh0h"]
+[ext_resource type="Texture2D" uid="uid://x5cyrsjal12j" path="res://arts/Backgrounds/Stars/Red/sprite4.png" id="4_1cis8"]
+[ext_resource type="Texture2D" uid="uid://dff0cr02tyf2t" path="res://arts/Backgrounds/Stars/Red/sprite5.png" id="5_bldxv"]
+[ext_resource type="Texture2D" uid="uid://bd1nbjt01nx55" path="res://arts/Backgrounds/Stars/Red/sprite6.png" id="6_cgeqm"]
+[ext_resource type="Texture2D" uid="uid://c4scod224naox" path="res://arts/Backgrounds/Stars/Red/sprite7.png" id="7_3naca"]
+[ext_resource type="Texture2D" uid="uid://buhl1h8rxbapb" path="res://arts/Backgrounds/Stars/Red/sprite8.png" id="8_mubew"]
+[ext_resource type="Texture2D" uid="uid://c8tydbqwt6igt" path="res://arts/Backgrounds/Stars/Red/sprite9.png" id="9_q3i1y"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_06x35"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_1ijkt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_42r5v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_0bh0h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_1cis8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_bldxv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_cgeqm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_3naca")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_mubew")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_q3i1y")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="RedStar" type="Node2D" unique_id=905922941]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=478302598]
+position = Vector2(301, 193)
+scale = Vector2(0.2, 0.2)
+sprite_frames = SubResource("SpriteFrames_06x35")
+autoplay = "default"

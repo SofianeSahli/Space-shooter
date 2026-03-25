@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://c6xnvdt0dbdks"]
+
+[ext_resource type="Script" uid="uid://dha826i6cx7nd" path="res://scripts/Asteroids.cs" id="1_cpjsr"]
+[ext_resource type="Texture2D" uid="uid://c8m3ckujaevuo" path="res://arts/Aestroids/aestroid_brown.png" id="1_kxcc2"]
+
+[node name="AsteroidMedium" type="Area2D" unique_id=1922905179]
+scale = Vector2(0.1, 0.1)
+collision_layer = 2
+collision_mask = 9
+script = ExtResource("1_cpjsr")
+MaxSpeed = 400
+MinSpeed = 600
+RotationMaxAngle = 0.4
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1092720254]
+texture = ExtResource("1_kxcc2")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1099668348]
+polygon = PackedVector2Array(-142, -186, -165, -154, -203, -66, -219, -2, -218, 45, -174, 95, -89.99999, 159.99998, -9.999999, 189.99998, 99.99999, 179.99998, 159.99998, 139.99998, 209.99998, 89.99999, 219.99998, 39.999996, 219.99998, -9.999999, 209.99998, -79.99999, 199.99998, -139.99998, 159.99998, -169.99998, 119.999985, -189.99998, 49.999996, -199.99998, -16, -200, -82, -198)
+
+[connection signal="body_entered" from="." to="." method="BodyEntred"]

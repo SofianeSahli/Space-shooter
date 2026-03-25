@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://gg8r0k7x8xna"]
+
+[ext_resource type="Script" uid="uid://dha826i6cx7nd" path="res://scripts/Asteroids.cs" id="1_e74ay"]
+[ext_resource type="Texture2D" uid="uid://cd4g218umj8vj" path="res://arts/Aestroids/aestroid_gay_2.png" id="1_wie4v"]
+
+[node name="Node2D" type="Area2D" unique_id=1714497011]
+scale = Vector2(0.2, 0.2)
+collision_layer = 2
+collision_mask = 9
+script = ExtResource("1_e74ay")
+MaxSpeed = 100
+MinSpeed = 400
+RotationMaxAngle = 0.1
+RotationMinAngle = 0.01
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1129859019]
+position = Vector2(0, -1)
+texture = ExtResource("1_wie4v")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1038285472]
+polygon = PackedVector2Array(-186, -142, -154, -184, -112, -194, 56, -208, 108, -194, 160, -148, 192, -94, 204, -38, 196, 48, 172, 108, 122, 158, 62, 176, -36, 180, -126, 162, -182, 128, -202, 80, -204, 12, -202, -44, -196, -96)
+
+[connection signal="body_entered" from="." to="." method="BodyEntred"]

@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://cilqcxylo3v85"]
+
+[ext_resource type="Texture2D" uid="uid://cgygqqyd4k4qu" path="res://arts/MainShip/Engine/BaseEngine/Main Ship - Engines - Base Engine.png" id="1_kly74"]
+[ext_resource type="Script" uid="uid://buooju25jv04r" path="res://scripts/Engine.cs" id="1_uh6ap"]
+[ext_resource type="Texture2D" uid="uid://wtdo3luehf8t" path="res://arts/MainShip/Engine/BaseEngine/Idle/BaseEngineIdle1.png" id="2_8m5ls"]
+[ext_resource type="Texture2D" uid="uid://bgferxyix2k03" path="res://arts/MainShip/Engine/BaseEngine/Power/BaseEnginePower1.png" id="2_t2l8x"]
+[ext_resource type="Script" uid="uid://d10iglnkdck5e" path="res://scripts/EngineData.cs" id="2_xliqn"]
+[ext_resource type="Texture2D" uid="uid://cxvkm4xekoho3" path="res://arts/MainShip/Engine/BaseEngine/Idle/BaseEngineIdle2.png" id="3_uh6ap"]
+[ext_resource type="Texture2D" uid="uid://bqqb7h8gm27hr" path="res://arts/MainShip/Engine/BaseEngine/Power/BaseEnginePower2.png" id="3_xliqn"]
+[ext_resource type="Texture2D" uid="uid://b6jykck8ctfwr" path="res://arts/MainShip/Engine/BaseEngine/Power/BaseEnginePower3.png" id="4_02yp7"]
+[ext_resource type="Texture2D" uid="uid://cib5r04rg21mf" path="res://arts/MainShip/Engine/BaseEngine/Idle/BaseEngineIdle3.png" id="4_skwie"]
+[ext_resource type="Texture2D" uid="uid://k1bhdmhj8i6b" path="res://arts/MainShip/Engine/BaseEngine/Power/BaseEnginePower4.png" id="5_7wwq3"]
+
+[sub_resource type="Resource" id="Resource_02yp7"]
+resource_local_to_scene = true
+script = ExtResource("2_xliqn")
+Speed = 800.0
+Acceleration = 900.0
+Friction = 900.0
+metadata/_custom_type_script = "uid://d10iglnkdck5e"
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bloj5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_t2l8x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_xliqn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_02yp7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_7wwq3")
+}],
+"loop": true,
+"name": &"Boost",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_8m5ls")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_uh6ap")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_skwie")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="BaseEngine" type="Node2D" unique_id=1234698946]
+script = ExtResource("1_uh6ap")
+Stats = SubResource("Resource_02yp7")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=217995538]
+position = Vector2(-1.1920929e-07, 11.549376)
+scale = Vector2(0.9, 2.6197498)
+sprite_frames = SubResource("SpriteFrames_bloj5")
+animation = &"Boost"
+autoplay = "default"
+frame_progress = 0.2027363
+speed_scale = 3.0
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=276389270]
+position = Vector2(0, -0.9999999)
+scale = Vector2(0.8541666, 0.48633334)
+texture = ExtResource("1_kly74")

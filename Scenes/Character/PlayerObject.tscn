@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://cp374h8dax5f7"]
+
+[ext_resource type="Script" uid="uid://houaq16lpuo5" path="res://scripts/Controls.cs" id="1_dnrfy"]
+[ext_resource type="Texture2D" uid="uid://b6ourd785uiov" path="res://arts/MainShip/Main Ship - Base - Full health.png" id="3_8b8mw"]
+[ext_resource type="Script" uid="uid://d10iglnkdck5e" path="res://scripts/EngineData.cs" id="4_e8ate"]
+[ext_resource type="PackedScene" uid="uid://cilqcxylo3v85" path="res://Scenes/Character/BaseEngine.tscn" id="10_ld6eg"]
+
+[sub_resource type="Resource" id="Resource_e8ate"]
+resource_local_to_scene = true
+script = ExtResource("4_e8ate")
+Speed = 800.0
+Acceleration = 900.0
+Friction = 900.0
+metadata/_custom_type_script = "uid://d10iglnkdck5e"
+
+[node name="PlayerObject" type="CharacterBody2D" unique_id=833827351]
+scale = Vector2(1.74, 1.74)
+collision_mask = 6
+script = ExtResource("1_dnrfy")
+Speed = 800.0
+Acceleration = 500.0
+Friction = 50.0
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=980764683]
+position = Vector2(-0.57471263, 1.7241373)
+scale = Vector2(1.4846742, 1.0387931)
+texture = ExtResource("3_8b8mw")
+
+[node name="Canon" type="Marker2D" parent="." unique_id=1491459631]
+position = Vector2(0, -13.793103)
+
+[node name="BaseShotTimer" type="Timer" parent="." unique_id=1677743442]
+wait_time = 0.25
+one_shot = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1044933025]
+position = Vector2(-0.57471263, -0.57471263)
+polygon = PackedVector2Array(-0.57471263, -11.494253, -4.597701, -9.195402, -7.4712644, -2.8735633, -22.988506, 7.4712644, -21.83908, 13.21839, -8.571428, 8.571428, -5.747126, 8.620689, -2.8735633, 8.620689, -1.4285713, 8.571428, 4.0229883, 8.620689, 5.172414, 8.620689, 20.689655, 13.21839, 20.689655, 8.045977, 6.8965516, -2.2988505, 2.8735633, -10.344828)
+
+[node name="EngineMarker" type="Marker2D" parent="." unique_id=240335635]
+position = Vector2(-0.57471263, 10.91954)
+
+[node name="BaseEngine" parent="EngineMarker" unique_id=1234698946 instance=ExtResource("10_ld6eg")]
+position = Vector2(0, -0.57471263)
+Stats = SubResource("Resource_e8ate")
+
+[connection signal="timeout" from="BaseShotTimer" to="." method="OnBaseShotTimeOut"]

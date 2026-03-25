@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://d4ddncb3gpad4"]
+
+[ext_resource type="Texture2D" uid="uid://ceyd8ginlj4w1" path="res://arts/Backgrounds/Stars/Green/0.png" id="1_71b6d"]
+[ext_resource type="Texture2D" uid="uid://dn3n3hwxiwe44" path="res://arts/Backgrounds/Stars/Green/1.png" id="2_03mxi"]
+[ext_resource type="Texture2D" uid="uid://de36032fw4iat" path="res://arts/Backgrounds/Stars/Green/2.png" id="3_nyegb"]
+[ext_resource type="Texture2D" uid="uid://dgrfu4wiarj4f" path="res://arts/Backgrounds/Stars/Green/3.png" id="4_6bp6q"]
+[ext_resource type="Texture2D" uid="uid://bba2wk6r8o6yi" path="res://arts/Backgrounds/Stars/Green/4.png" id="5_ihif3"]
+[ext_resource type="Texture2D" uid="uid://d3xwl1tbt5g3l" path="res://arts/Backgrounds/Stars/Green/5.png" id="6_7gmn1"]
+[ext_resource type="Texture2D" uid="uid://bm4whd7eqpoer" path="res://arts/Backgrounds/Stars/Green/6.png" id="7_jltd3"]
+[ext_resource type="Texture2D" uid="uid://cpmjqkle0t8rh" path="res://arts/Backgrounds/Stars/Green/7.png" id="8_plbl7"]
+[ext_resource type="Texture2D" uid="uid://buopfjib86see" path="res://arts/Backgrounds/Stars/Green/8.png" id="9_wndr4"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4rwl3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_71b6d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_03mxi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_nyegb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_6bp6q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ihif3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_7gmn1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_jltd3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_plbl7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_wndr4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="GreenStar" type="Node2D" unique_id=182734081]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=171388520]
+scale = Vector2(0.2, 0.2)
+sprite_frames = SubResource("SpriteFrames_4rwl3")
+autoplay = "default"
+frame_progress = 0.648887
