@@ -27,7 +27,7 @@ project/assembly_name="SpaceShooter"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/nklbdev.aseprite_importers/plugin.cfg")
+enabled=PackedStringArray()
 
 [layer_names]
 

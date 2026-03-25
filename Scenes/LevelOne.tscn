@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bw7w161owec5s" path="res://Scenes/RedStar.tscn" id="4_080ts"]
 [ext_resource type="Script" uid="uid://b8vgiq350e8me" path="res://scripts/AsteroidManager.cs" id="4_tocei"]
 [ext_resource type="PackedScene" uid="uid://d4ddncb3gpad4" path="res://Scenes/GreenStar.tscn" id="5_cvavm"]
+[ext_resource type="PackedScene" uid="uid://bqhx50sd653iu" path="res://Scenes/Hud.tscn" id="8_vhmom"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tocei"]
 size = Vector2(57.00006, 1282)
@@ -21,14 +22,17 @@ script = ExtResource("1_tocei")
 position = Vector2(647.99994, -1448)
 scale = Vector2(3.675, 3.675)
 texture = ExtResource("2_tocei")
+metadata/_edit_lock_ = true
 
 [node name="Background2" type="Sprite2D" parent="." unique_id=512468618]
 position = Vector2(650, 244.00003)
 rotation = 1.5707964
 scale = Vector2(2.6705148, 3.6746774)
 texture = ExtResource("3_t5ss4")
+metadata/_edit_lock_ = true
 
 [node name="Foreground" type="Node2D" parent="." unique_id=1006635736]
+metadata/_edit_lock_ = true
 
 [node name="RedStars" type="Node2D" parent="Foreground" unique_id=654221131]
 
@@ -108,6 +112,7 @@ texture = ExtResource("3_t5ss4")
 position = Vector2(429, 532)
 
 [node name="Borders" type="Node2D" parent="." unique_id=1869864548]
+metadata/_edit_lock_ = true
 
 [node name="BottomBorder" type="StaticBody2D" parent="Borders" unique_id=314616764]
 collision_layer = 4
@@ -140,11 +145,15 @@ rotation = 1.5707964
 shape = SubResource("RectangleShape2D_tocei")
 
 [node name="MeteorTimer" type="Timer" parent="." unique_id=173214226]
-wait_time = 0.2
+wait_time = 0.5
 autostart = true
 
 [node name="AsteroidManager" type="Node2D" parent="." unique_id=1557982094]
+position = Vector2(2, 16)
 script = ExtResource("4_tocei")
 
-[connection signal="ShootSignal" from="PlayerObject" to="." method="OnShootSignal"]
+[node name="HudLayer" type="CanvasLayer" parent="." unique_id=1342020954]
+
+[node name="Control" parent="HudLayer" unique_id=1141076350 instance=ExtResource("8_vhmom")]
+
 [connection signal="timeout" from="MeteorTimer" to="." method="TimerTimeOut"]

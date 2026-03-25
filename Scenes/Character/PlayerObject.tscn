@@ -3,9 +3,10 @@
 [ext_resource type="Script" uid="uid://houaq16lpuo5" path="res://scripts/Controls.cs" id="1_dnrfy"]
 [ext_resource type="Texture2D" uid="uid://b6ourd785uiov" path="res://arts/MainShip/Main Ship - Base - Full health.png" id="3_8b8mw"]
 [ext_resource type="Script" uid="uid://d10iglnkdck5e" path="res://scripts/EngineData.cs" id="4_e8ate"]
+[ext_resource type="Script" uid="uid://ccaxlw671gxte" path="res://Scenes/Character/HealthIndicator.cs" id="5_0cra0"]
 [ext_resource type="PackedScene" uid="uid://cilqcxylo3v85" path="res://Scenes/Character/BaseEngine.tscn" id="10_ld6eg"]
 
-[sub_resource type="Resource" id="Resource_e8ate"]
+[sub_resource type="Resource" id="Resource_0cra0"]
 resource_local_to_scene = true
 script = ExtResource("4_e8ate")
 Speed = 800.0
@@ -16,10 +17,6 @@ metadata/_custom_type_script = "uid://d10iglnkdck5e"
 [node name="PlayerObject" type="CharacterBody2D" unique_id=833827351]
 scale = Vector2(1.74, 1.74)
 collision_mask = 6
-script = ExtResource("1_dnrfy")
-Speed = 800.0
-Acceleration = 500.0
-Friction = 50.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=980764683]
 position = Vector2(-0.57471263, 1.7241373)
@@ -42,6 +39,12 @@ position = Vector2(-0.57471263, 10.91954)
 
 [node name="BaseEngine" parent="EngineMarker" unique_id=1234698946 instance=ExtResource("10_ld6eg")]
 position = Vector2(0, -0.57471263)
-Stats = SubResource("Resource_e8ate")
+Stats = SubResource("Resource_0cra0")
+
+[node name="ControlNode" type="Node2D" parent="." unique_id=1570221039]
+script = ExtResource("1_dnrfy")
+
+[node name="HealthIndicator" type="Node2D" parent="." unique_id=494965518]
+script = ExtResource("5_0cra0")
 
 [connection signal="timeout" from="BaseShotTimer" to="." method="OnBaseShotTimeOut"]

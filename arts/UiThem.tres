@@ -1,0 +1,18 @@
+[gd_resource type="Theme" format=3 uid="uid://gwfhsh54eyfv"]
+
+[ext_resource type="Texture2D" uid="uid://dbu4wbtko5sy7" path="res://arts/Transparent.png" id="1_fcarx"]
+[ext_resource type="FontFile" uid="uid://c0onw1j6fwv65" path="res://arts/Fonts/Codex-yYVPV.ttf" id="1_knfki"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_knfki"]
+
+[resource]
+default_font = ExtResource("1_knfki")
+HSlider/constants/center_grabber = 0
+HSlider/constants/grabber_offset = 0
+HSlider/constants/tick_offset = 0
+HSlider/icons/grabber = ExtResource("1_fcarx")
+HSlider/icons/grabber_disabled = ExtResource("1_fcarx")
+HSlider/icons/grabber_highlight = ExtResource("1_fcarx")
+HSlider/icons/tick = ExtResource("1_fcarx")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxTexture_knfki")
+HSlider/styles/slider = null

@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://jowcyjreyhgg"]
+
+[ext_resource type="Script" uid="uid://dha826i6cx7nd" path="res://scripts/Asteroids.cs" id="1_limho"]
+[ext_resource type="Texture2D" uid="uid://0vf3hk4xgm5e" path="res://arts/Aestroids/Animated/Explosion/0.png" id="2_8j4yg"]
+[ext_resource type="Texture2D" uid="uid://csinfqtd3f6yc" path="res://arts/Aestroids/Animated/Explosion/1.png" id="3_bl7w2"]
+[ext_resource type="Texture2D" uid="uid://ylvucgsnncos" path="res://arts/Aestroids/Animated/Explosion/2.png" id="4_kaieh"]
+[ext_resource type="Texture2D" uid="uid://b0rlwuvvxaemx" path="res://arts/Aestroids/Animated/Explosion/3.png" id="5_abwi8"]
+[ext_resource type="Texture2D" uid="uid://b3rghicg031xe" path="res://arts/Aestroids/Animated/Explosion/4.png" id="6_0uh4h"]
+[ext_resource type="Texture2D" uid="uid://b4shk16m8jgne" path="res://arts/Aestroids/Animated/Explosion/5.png" id="7_abpqc"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8rq18"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_8j4yg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_bl7w2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_kaieh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_abwi8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_0uh4h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_abpqc")
+}],
+"loop": true,
+"name": &"Explosion",
+"speed": 5.0
+}]
+
+[node name="AsteroidSmall" type="Area2D" unique_id=2038348368]
+scale = Vector2(0.05, 0.05)
+collision_layer = 2
+collision_mask = 9
+script = ExtResource("1_limho")
+MaxSpeed = 300.0
+MinSpeed = 150.0
+RotationMaxAngle = 0.05
+RotationMinAngle = 0.09
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=497988969]
+position = Vector2(-218.37262, -79.99999)
+scale = Vector2(0.91391504, 1)
+polygon = PackedVector2Array(85.75484, -60.000008, 40, 16, 16, 96, 16, 136, 36, 168, 68, 196, 160, 228, 220, 240, 288, 244, 340, 236, 400, 200, 428, 164, 440, 100, 432, 40, 392.12903, 19.999992, 348.3613, -7.6293945e-06, 282.7097, -60.000008, 260.8258, -60.000008, 219.99995, -80, 179.99997, -80, 139.99997, -80)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1068736892]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1670566417]
+scale = Vector2(10.513157, 9.696969)
+sprite_frames = SubResource("SpriteFrames_8rq18")
+animation = &"Explosion"
+
+[connection signal="body_entered" from="." to="." method="CollisionDetected"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="Destroy"]

@@ -5,11 +5,7 @@ using System.Collections.Generic;
 public partial class Level : Node2D
 {
     [Export]
-    PackedScene[] AsteroidBluePrint = [
-        GD.Load<PackedScene>("res://Scenes/Ennemies/AsteroidSmall.tscn"),
-        GD.Load<PackedScene>("res://Scenes/Ennemies/AsteroidMedium.tscn"),
-        GD.Load<PackedScene>("res://Scenes/Ennemies/AsteroidLarge.tscn")
-     ];
+    PackedScene AsteroidBluePrint = GD.Load<PackedScene>("res://Scenes/Ennemies/Asteroid.tscn");
     [Export]
     private Node2D AsteroidManager;
 
@@ -24,15 +20,10 @@ public partial class Level : Node2D
     {
         RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator();
         var random = randomNumberGenerator.RandiRange(0, 2);
-        var Asteroid = AsteroidBluePrint[random].Instantiate();
+        var Asteroid = AsteroidBluePrint.Instantiate();
         AsteroidManager.AddChild(Asteroid);
     }
-    public void OnShootSignal(Vector2 Position, PackedScene Ammo)
-    {
-        Node2D SingleShot = (Node2D)Ammo.Instantiate();
-        SingleShot.Position = Position;
-        AddChild(SingleShot);
-    }
+  
 
     private void SelectStarsParentAndLayout(string ParentName)
     {
