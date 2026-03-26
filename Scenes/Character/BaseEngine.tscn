@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://cilqcxylo3v85"]
 
 [ext_resource type="Texture2D" uid="uid://cgygqqyd4k4qu" path="res://arts/MainShip/Engine/BaseEngine/Main Ship - Engines - Base Engine.png" id="1_kly74"]
-[ext_resource type="Script" uid="uid://buooju25jv04r" path="res://scripts/Engine.cs" id="1_uh6ap"]
+[ext_resource type="Script" uid="uid://buooju25jv04r" path="res://scripts/Player/Engine/Engine.cs" id="1_uh6ap"]
 [ext_resource type="Texture2D" uid="uid://wtdo3luehf8t" path="res://arts/MainShip/Engine/BaseEngine/Idle/BaseEngineIdle1.png" id="2_8m5ls"]
 [ext_resource type="Texture2D" uid="uid://bgferxyix2k03" path="res://arts/MainShip/Engine/BaseEngine/Power/BaseEnginePower1.png" id="2_t2l8x"]
-[ext_resource type="Script" uid="uid://d10iglnkdck5e" path="res://scripts/EngineData.cs" id="2_xliqn"]
+[ext_resource type="Script" uid="uid://d10iglnkdck5e" path="res://scripts/Player/Engine/EngineData.cs" id="2_xliqn"]
 [ext_resource type="Texture2D" uid="uid://cxvkm4xekoho3" path="res://arts/MainShip/Engine/BaseEngine/Idle/BaseEngineIdle2.png" id="3_uh6ap"]
 [ext_resource type="Texture2D" uid="uid://bqqb7h8gm27hr" path="res://arts/MainShip/Engine/BaseEngine/Power/BaseEnginePower2.png" id="3_xliqn"]
 [ext_resource type="Texture2D" uid="uid://b6jykck8ctfwr" path="res://arts/MainShip/Engine/BaseEngine/Power/BaseEnginePower3.png" id="4_02yp7"]

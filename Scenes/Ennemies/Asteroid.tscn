@@ -1,12 +1,13 @@
 [gd_scene format=3 uid="uid://jowcyjreyhgg"]
 
-[ext_resource type="Script" uid="uid://dha826i6cx7nd" path="res://scripts/Asteroids.cs" id="1_limho"]
+[ext_resource type="Script" uid="uid://dha826i6cx7nd" path="res://scripts/Ennemies/Asteroids.cs" id="1_limho"]
 [ext_resource type="Texture2D" uid="uid://0vf3hk4xgm5e" path="res://arts/Aestroids/Animated/Explosion/0.png" id="2_8j4yg"]
 [ext_resource type="Texture2D" uid="uid://csinfqtd3f6yc" path="res://arts/Aestroids/Animated/Explosion/1.png" id="3_bl7w2"]
 [ext_resource type="Texture2D" uid="uid://ylvucgsnncos" path="res://arts/Aestroids/Animated/Explosion/2.png" id="4_kaieh"]
 [ext_resource type="Texture2D" uid="uid://b0rlwuvvxaemx" path="res://arts/Aestroids/Animated/Explosion/3.png" id="5_abwi8"]
 [ext_resource type="Texture2D" uid="uid://b3rghicg031xe" path="res://arts/Aestroids/Animated/Explosion/4.png" id="6_0uh4h"]
 [ext_resource type="Texture2D" uid="uid://b4shk16m8jgne" path="res://arts/Aestroids/Animated/Explosion/5.png" id="7_abpqc"]
+[ext_resource type="Script" uid="uid://ccaxlw671gxte" path="res://scripts/Player/HealthIndicator.cs" id="8_8j4yg"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8rq18"]
 animations = [{
@@ -29,9 +30,9 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("7_abpqc")
 }],
-"loop": true,
+"loop": false,
 "name": &"Explosion",
-"speed": 5.0
+"speed": 50.0
 }]
 
 [node name="AsteroidSmall" type="Area2D" unique_id=2038348368]
@@ -39,8 +40,7 @@ scale = Vector2(0.05, 0.05)
 collision_layer = 2
 collision_mask = 9
 script = ExtResource("1_limho")
-MaxSpeed = 300.0
-MinSpeed = 150.0
+MaxSpeed = 400.0
 RotationMaxAngle = 0.05
 RotationMinAngle = 0.09
 
@@ -55,6 +55,16 @@ polygon = PackedVector2Array(85.75484, -60.000008, 40, 16, 16, 96, 16, 136, 36, 
 scale = Vector2(10.513157, 9.696969)
 sprite_frames = SubResource("SpriteFrames_8rq18")
 animation = &"Explosion"
+speed_scale = 0.5
+
+[node name="HealthIndicator" type="Node2D" parent="." unique_id=1389540981]
+position = Vector2(19.999998, 0)
+script = ExtResource("8_8j4yg")
+CurrentHealth = 50.0
+MaxHealth = 50.0
 
 [connection signal="body_entered" from="." to="." method="CollisionDetected"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="Destroy"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="OnAnimationFinished"]
+[connection signal="ShouldDie" from="HealthIndicator" to="." method="ShouldDie"]
+[connection signal="TookDamage" from="HealthIndicator" to="." method="TookDamage"]

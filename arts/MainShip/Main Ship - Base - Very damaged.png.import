@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cd4g218umj8vj"
-path="res://.godot/imported/aestroid_gay_2.png-fdeef47890604f27ecd2761cc11e8abe.ctex"
+uid="uid://cd371uijunpka"
+path="res://.godot/imported/Main Ship - Base - Very damaged.png-fa9cd4414470131e34a926057760a529.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://arts/Aestroids/aestroid_gay_2.png"
-dest_files=["res://.godot/imported/aestroid_gay_2.png-fdeef47890604f27ecd2761cc11e8abe.ctex"]
+source_file="res://arts/MainShip/Main Ship - Base - Very damaged.png"
+dest_files=["res://.godot/imported/Main Ship - Base - Very damaged.png-fa9cd4414470131e34a926057760a529.ctex"]
 
 [params]
 

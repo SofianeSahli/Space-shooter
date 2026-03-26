@@ -4,38 +4,22 @@ using System.Collections.Generic;
 
 public partial class Controls : Node2D
 {
-	// Reference to the player (CharacterBody2D)
 	private CharacterBody2D Player;
-
-	// Movement variables
 	[Export] public float Speed;
 	[Export] public float Acceleration;
 	[Export] public float Friction;
-
-	// Fire variables
 	private Marker2D Canon;
-
 	[Signal]
-	public delegate void ShootSignalEventHandler(Vector2 Position, PackedScene AmmoScene);
-
-	public Dictionary<string, PackedScene> Ammos = new Dictionary<string, PackedScene>()
-	{
-		{ "Laser", GD.Load<PackedScene>("res://Scenes/Bullets/BulletRed.tscn") }
-	};
-
-	private bool CanShoot = true;
-	private Timer BaseShotTimer;
+	public delegate void ShootSignalEventHandler(float ChargePercent);
+	private float currentCharge = 0f;
+	private float maxChargeTime = 2f;
+	private bool isCharging = false;
 
 	private Engine engine;
 
 	public override void _Ready()
 	{
-		// Get the parent (Player)
 		Player = GetParent<CharacterBody2D>();
-
-		Canon = Player.GetNode<Marker2D>("Canon");
-		BaseShotTimer = Player.GetNode<Timer>("BaseShotTimer");
-
 		engine = Player.GetNode<Marker2D>("EngineMarker").FindChild("*", true, false) as Engine;
 
 		if (engine != null)
@@ -48,10 +32,17 @@ public partial class Controls : Node2D
 
 	public override void _Process(double delta)
 	{
-		if (Input.IsActionPressed("ui_accept") && CanShoot)
+		if (Input.IsActionPressed("ui_accept"))
 		{
-			FireGun();
+			isCharging = true;
+			currentCharge += (float)delta;
+			currentCharge = Mathf.Min(currentCharge, maxChargeTime);
 		}
+		if (Input.IsActionJustReleased("ui_accept"))
+		{
+			ReleaseAttack();
+		}
+
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -82,16 +73,18 @@ public partial class Controls : Node2D
 		Player.MoveAndSlide();
 	}
 
-	private void FireGun()
+	private void ReleaseAttack()
 	{
-		EmitSignal(SignalName.ShootSignal, Canon.GlobalPosition, Ammos["Laser"]);
+		if (!isCharging) return;
 
-		CanShoot = false;
-		BaseShotTimer.Start();
+		isCharging = false;
+
+		float chargePercent = currentCharge / maxChargeTime;
+
+		EmitSignal(SignalName.ShootSignal, chargePercent);
+
+		currentCharge = 0f;
 	}
 
-	public void OnBaseShotTimeOut()
-	{
-		CanShoot = true;
-	}
+
 }

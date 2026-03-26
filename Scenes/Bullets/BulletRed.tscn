@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cygabmyeikdok"]
 
-[ext_resource type="Script" uid="uid://dlbfvnciyempm" path="res://scripts/Bullet.cs" id="1_ca2hj"]
+[ext_resource type="Script" uid="uid://dlbfvnciyempm" path="res://scripts/Player/Ammos/Bullet.cs" id="1_ca2hj"]
 [ext_resource type="Texture2D" uid="uid://c5utk07iirl0v" path="res://arts/Bullets/bullet_red.png" id="2_667oh"]
 
 [node name="BulletRed" type="Area2D" unique_id=1921236181]
@@ -8,10 +8,11 @@ scale = Vector2(0.5, 0.5)
 collision_layer = 8
 collision_mask = 10
 script = ExtResource("1_ca2hj")
-Speed = 800.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=941637696]
 texture = ExtResource("2_667oh")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1255079822]
 polygon = PackedVector2Array(-6, -20, 0, -26, 4, -22, 6, -16, 6, -8, 4, 2, 0, 22, -6, 0, -6, -10)
+
+[connection signal="area_entered" from="." to="." method="CollisionDetected"]

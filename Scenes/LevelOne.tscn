@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://3734twhb0uys"]
 
 [ext_resource type="PackedScene" uid="uid://cp374h8dax5f7" path="res://Scenes/Character/PlayerObject.tscn" id="1_pkd3b"]
-[ext_resource type="Script" uid="uid://dlkech4n53m6j" path="res://scripts/Level.cs" id="1_tocei"]
+[ext_resource type="Script" uid="uid://dlkech4n53m6j" path="res://scripts/General/Level.cs" id="1_tocei"]
 [ext_resource type="Texture2D" uid="uid://bp8c5gaxcp3mi" path="res://arts/Starry background  - Layer 01 - Void.png" id="2_tocei"]
 [ext_resource type="Texture2D" uid="uid://b4uoykgsdmyni" path="res://arts/Starry background  - Layer 02 - Stars.png" id="3_t5ss4"]
 [ext_resource type="PackedScene" uid="uid://bw7w161owec5s" path="res://Scenes/RedStar.tscn" id="4_080ts"]
-[ext_resource type="Script" uid="uid://b8vgiq350e8me" path="res://scripts/AsteroidManager.cs" id="4_tocei"]
+[ext_resource type="Script" uid="uid://b8vgiq350e8me" path="res://scripts/Ennemies/AsteroidManager.cs" id="4_tocei"]
 [ext_resource type="PackedScene" uid="uid://d4ddncb3gpad4" path="res://Scenes/GreenStar.tscn" id="5_cvavm"]
 [ext_resource type="PackedScene" uid="uid://bqhx50sd653iu" path="res://Scenes/Hud.tscn" id="8_vhmom"]
 
@@ -17,6 +17,10 @@ size = Vector2(99, 736)
 
 [node name="RootLevel" type="Node2D" unique_id=1689617371]
 script = ExtResource("1_tocei")
+
+[node name="HudLayer" type="CanvasLayer" parent="." unique_id=1342020954]
+
+[node name="Control" parent="HudLayer" unique_id=1141076350 instance=ExtResource("8_vhmom")]
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1143259889]
 position = Vector2(647.99994, -1448)
@@ -145,15 +149,11 @@ rotation = 1.5707964
 shape = SubResource("RectangleShape2D_tocei")
 
 [node name="MeteorTimer" type="Timer" parent="." unique_id=173214226]
-wait_time = 0.5
+wait_time = 0.206
 autostart = true
 
 [node name="AsteroidManager" type="Node2D" parent="." unique_id=1557982094]
 position = Vector2(2, 16)
 script = ExtResource("4_tocei")
-
-[node name="HudLayer" type="CanvasLayer" parent="." unique_id=1342020954]
-
-[node name="Control" parent="HudLayer" unique_id=1141076350 instance=ExtResource("8_vhmom")]
 
 [connection signal="timeout" from="MeteorTimer" to="." method="TimerTimeOut"]

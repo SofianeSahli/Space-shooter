@@ -1,22 +1,22 @@
 [gd_scene format=3 uid="uid://cp374h8dax5f7"]
 
-[ext_resource type="Script" uid="uid://houaq16lpuo5" path="res://scripts/Controls.cs" id="1_dnrfy"]
-[ext_resource type="Texture2D" uid="uid://b6ourd785uiov" path="res://arts/MainShip/Main Ship - Base - Full health.png" id="3_8b8mw"]
-[ext_resource type="Script" uid="uid://d10iglnkdck5e" path="res://scripts/EngineData.cs" id="4_e8ate"]
-[ext_resource type="Script" uid="uid://ccaxlw671gxte" path="res://Scenes/Character/HealthIndicator.cs" id="5_0cra0"]
-[ext_resource type="PackedScene" uid="uid://cilqcxylo3v85" path="res://Scenes/Character/BaseEngine.tscn" id="10_ld6eg"]
+[ext_resource type="Script" uid="uid://houaq16lpuo5" path="res://scripts/Player/Mouvement/Controls.cs" id="1_dnrfy"]
+[ext_resource type="Script" uid="uid://dquvyi5om50ux" path="res://scripts/PlayerObject.cs" id="1_p2sgo"]
+[ext_resource type="Texture2D" uid="uid://m2sieljthp7a" path="res://arts/MainShip/Main Ship - Base - Damaged.png" id="2_7jct2"]
+[ext_resource type="Texture2D" uid="uid://cyfpi8xfp2raf" path="res://arts/MainShip/Main Ship - Base - Full health.png" id="3_8b8mw"]
+[ext_resource type="Texture2D" uid="uid://b3o6x2uqts4ya" path="res://arts/MainShip/Main Ship - Base - Slight damage.png" id="3_dnrfy"]
+[ext_resource type="Texture2D" uid="uid://cd371uijunpka" path="res://arts/MainShip/Main Ship - Base - Very damaged.png" id="4_aafbm"]
+[ext_resource type="Script" uid="uid://ccaxlw671gxte" path="res://scripts/Player/HealthIndicator.cs" id="5_0cra0"]
+[ext_resource type="Script" uid="uid://p8fvvexievw0" path="res://scripts/Player/Canon.cs" id="6_dnrfy"]
 
-[sub_resource type="Resource" id="Resource_0cra0"]
-resource_local_to_scene = true
-script = ExtResource("4_e8ate")
-Speed = 800.0
-Acceleration = 900.0
-Friction = 900.0
-metadata/_custom_type_script = "uid://d10iglnkdck5e"
-
-[node name="PlayerObject" type="CharacterBody2D" unique_id=833827351]
+[node name="PlayerObject" type="CharacterBody2D" unique_id=833827351 groups=["PlayerObject"]]
 scale = Vector2(1.74, 1.74)
 collision_mask = 6
+script = ExtResource("1_p2sgo")
+Damaged = ExtResource("2_7jct2")
+SlightDamage = ExtResource("3_dnrfy")
+VeryDamaged = ExtResource("4_aafbm")
+FullHealth = ExtResource("3_8b8mw")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=980764683]
 position = Vector2(-0.57471263, 1.7241373)
@@ -25,9 +25,10 @@ texture = ExtResource("3_8b8mw")
 
 [node name="Canon" type="Marker2D" parent="." unique_id=1491459631]
 position = Vector2(0, -13.793103)
+script = ExtResource("6_dnrfy")
 
-[node name="BaseShotTimer" type="Timer" parent="." unique_id=1677743442]
-wait_time = 0.25
+[node name="BaseShotTimer" type="Timer" parent="Canon" unique_id=1677743442]
+wait_time = 1.009
 one_shot = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1044933025]
@@ -37,14 +38,14 @@ polygon = PackedVector2Array(-0.57471263, -11.494253, -4.597701, -9.195402, -7.4
 [node name="EngineMarker" type="Marker2D" parent="." unique_id=240335635]
 position = Vector2(-0.57471263, 10.91954)
 
-[node name="BaseEngine" parent="EngineMarker" unique_id=1234698946 instance=ExtResource("10_ld6eg")]
-position = Vector2(0, -0.57471263)
-Stats = SubResource("Resource_0cra0")
-
 [node name="ControlNode" type="Node2D" parent="." unique_id=1570221039]
 script = ExtResource("1_dnrfy")
+Speed = 100.0
+Acceleration = 400.0
 
 [node name="HealthIndicator" type="Node2D" parent="." unique_id=494965518]
 script = ExtResource("5_0cra0")
+IsPlayer = true
 
-[connection signal="timeout" from="BaseShotTimer" to="." method="OnBaseShotTimeOut"]
+[connection signal="timeout" from="Canon/BaseShotTimer" to="Canon" method="CansShootAgain"]
+[connection signal="ShootSignal" from="ControlNode" to="Canon" method="OnBaseShoot"]
