@@ -8,6 +8,112 @@
 [ext_resource type="Texture2D" uid="uid://cd371uijunpka" path="res://arts/MainShip/Main Ship - Base - Very damaged.png" id="4_aafbm"]
 [ext_resource type="Script" uid="uid://ccaxlw671gxte" path="res://scripts/Player/HealthIndicator.cs" id="5_0cra0"]
 [ext_resource type="Script" uid="uid://p8fvvexievw0" path="res://scripts/Player/Canon.cs" id="6_dnrfy"]
+[ext_resource type="PackedScene" uid="uid://cilqcxylo3v85" path="res://Scenes/Character/BaseEngine.tscn" id="7_5a1qa"]
+[ext_resource type="Script" uid="uid://d10iglnkdck5e" path="res://scripts/Player/Engine/EngineData.cs" id="8_alcsi"]
+[ext_resource type="Texture2D" uid="uid://2djlg7g3aa0v" path="res://arts/Explosion/00_explosion.png" id="9_7t5y5"]
+[ext_resource type="Texture2D" uid="uid://brf41oss34b5a" path="res://arts/Explosion/01_explosion.png" id="10_omxeo"]
+[ext_resource type="Texture2D" uid="uid://bdebxmidhixod" path="res://arts/Explosion/02_explosion.png" id="11_5a1qa"]
+[ext_resource type="Texture2D" uid="uid://du160m1y5idjs" path="res://arts/Explosion/03_explosion.png" id="12_alcsi"]
+[ext_resource type="Texture2D" uid="uid://cajykxmfedivj" path="res://arts/Explosion/04_explosion.png" id="13_j205e"]
+[ext_resource type="Texture2D" uid="uid://db2w4kryhm4i8" path="res://arts/Explosion/05_explosion.png" id="14_p8vg2"]
+[ext_resource type="Texture2D" uid="uid://b3dqgqd3a8cgp" path="res://arts/Explosion/06_explosion.png" id="15_y4tio"]
+[ext_resource type="Texture2D" uid="uid://b5ua1luibn6k1" path="res://arts/Explosion/07_explosion.png" id="16_bq608"]
+[ext_resource type="Texture2D" uid="uid://bjis4ld3afx8w" path="res://arts/Explosion/08_explosion.png" id="17_xpn8v"]
+[ext_resource type="Texture2D" uid="uid://f646p070llxu" path="res://arts/Explosion/09_explosion.png" id="18_7rj64"]
+[ext_resource type="Texture2D" uid="uid://dyrgdqq564co0" path="res://arts/Explosion/10_explosion.png" id="19_ru8vj"]
+[ext_resource type="Texture2D" uid="uid://b2hcv684c51me" path="res://arts/Explosion/11_explosion.png" id="20_45p8f"]
+[ext_resource type="Texture2D" uid="uid://dqh06jiutxvi5" path="res://arts/Explosion/12_explosion.png" id="21_62hhr"]
+[ext_resource type="Texture2D" uid="uid://ci3qam4trgrh3" path="res://arts/Explosion/13_explosion.png" id="22_fbssk"]
+[ext_resource type="Texture2D" uid="uid://c46romicfqgnr" path="res://arts/Explosion/14_explosion.png" id="23_k6xa4"]
+[ext_resource type="Texture2D" uid="uid://brnh8k5do7f5u" path="res://arts/Explosion/15_explosion.png" id="24_3vj3c"]
+[ext_resource type="Texture2D" uid="uid://dk3n2qgi1lsj3" path="res://arts/Explosion/16_explosion.png" id="25_a81bd"]
+[ext_resource type="Texture2D" uid="uid://dpwkj8xo1cyh6" path="res://arts/Explosion/17_explosion.png" id="26_fhi1l"]
+[ext_resource type="Texture2D" uid="uid://swoapf2nptyv" path="res://arts/Explosion/18_explosion.png" id="27_p8uxt"]
+[ext_resource type="Texture2D" uid="uid://dpas8cj28ch5q" path="res://arts/Explosion/19_explosion.png" id="28_k7ep6"]
+[ext_resource type="Texture2D" uid="uid://do57tyr41tqhv" path="res://arts/Explosion/20_explosion.png" id="29_l87ni"]
+[ext_resource type="Texture2D" uid="uid://dwhbq0rhry3s4" path="res://arts/Explosion/21_explosion.png" id="30_eldix"]
+
+[sub_resource type="Resource" id="Resource_j205e"]
+resource_local_to_scene = true
+script = ExtResource("8_alcsi")
+Speed = 450.0
+Acceleration = 450.0
+Friction = 900.0
+metadata/_custom_type_script = "uid://d10iglnkdck5e"
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4lkub"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_7t5y5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_omxeo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_5a1qa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_alcsi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_j205e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_p8vg2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_y4tio")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_bq608")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_xpn8v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_7rj64")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_ru8vj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_45p8f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_62hhr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_fbssk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_k6xa4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_3vj3c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_a81bd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_fhi1l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_p8uxt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_k7ep6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_l87ni")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_eldix")
+}],
+"loop": false,
+"name": &"Explosion",
+"speed": 16.0
+}]
 
 [node name="PlayerObject" type="CharacterBody2D" unique_id=833827351 groups=["PlayerObject"]]
 scale = Vector2(1.74, 1.74)
@@ -38,14 +144,24 @@ polygon = PackedVector2Array(-0.57471263, -11.494253, -4.597701, -9.195402, -7.4
 [node name="EngineMarker" type="Marker2D" parent="." unique_id=240335635]
 position = Vector2(-0.57471263, 10.91954)
 
+[node name="BaseEngine" parent="EngineMarker" unique_id=1234698946 instance=ExtResource("7_5a1qa")]
+Stats = SubResource("Resource_j205e")
+
 [node name="ControlNode" type="Node2D" parent="." unique_id=1570221039]
 script = ExtResource("1_dnrfy")
-Speed = 100.0
-Acceleration = 400.0
+Speed = 200.0
+Acceleration = 300.0
 
 [node name="HealthIndicator" type="Node2D" parent="." unique_id=494965518]
 script = ExtResource("5_0cra0")
 IsPlayer = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=25205993]
+visible = false
+sprite_frames = SubResource("SpriteFrames_4lkub")
+animation = &"Explosion"
+frame = 21
+frame_progress = 1.0
 
 [connection signal="timeout" from="Canon/BaseShotTimer" to="Canon" method="CansShootAgain"]
 [connection signal="ShootSignal" from="ControlNode" to="Canon" method="OnBaseShoot"]

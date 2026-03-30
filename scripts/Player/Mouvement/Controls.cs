@@ -14,14 +14,18 @@ public partial class Controls : Node2D
 	private float currentCharge = 0f;
 	private float maxChargeTime = 2f;
 	private bool isCharging = false;
-
+	public bool IsDying { get; set; } = false;
 	private Engine engine;
-
+	[Signal]
+	public delegate void ChargeUpdatedEventHandler(float chargePercent);
 	public override void _Ready()
 	{
 		Player = GetParent<CharacterBody2D>();
 		engine = Player.GetNode<Marker2D>("EngineMarker").FindChild("*", true, false) as Engine;
-
+		Player.GetNode<HealthIndicator>("HealthIndicator").ShouldDie += () =>
+		{
+			IsDying = true;
+		};
 		if (engine != null)
 		{
 			Speed = engine.Stats.Speed;
@@ -36,53 +40,76 @@ public partial class Controls : Node2D
 		{
 			isCharging = true;
 			currentCharge += (float)delta;
-			currentCharge = Mathf.Min(currentCharge, maxChargeTime);
+			float chargePercent = currentCharge / maxChargeTime;
+			EmitSignal(SignalName.ChargeUpdated, chargePercent);
 		}
 		if (Input.IsActionJustReleased("ui_accept"))
 		{
+			EmitSignal(SignalName.ChargeUpdated, 0f);
+
 			ReleaseAttack();
 		}
 
 	}
 
-	public override void _PhysicsProcess(double delta)
-	{
-		if (Player == null) return;
-		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-		Vector2 velocity = Player.Velocity;
-		if (direction != Vector2.Zero)
-		{
-			velocity = velocity.MoveToward(direction * Speed, Acceleration * (float)delta);
-		}
-		else
-		{
-			velocity = velocity.MoveToward(Vector2.Zero, Friction * (float)delta);
-		}
+public override void _PhysicsProcess(double delta)
+{
+    if (Player == null || IsDying) return;
 
-		Player.Velocity = velocity;
-		float targetRotation = 0f;
-		if (Mathf.Abs(velocity.X) > 5f)
-		{
-			targetRotation = Mathf.Clamp(velocity.X / Speed, -1f, 1f) * 0.3f;
-		}
+    float dt = (float)delta;
+    Vector2 velocity = Player.Velocity;
 
-		Player.Rotation = Mathf.Lerp(Player.Rotation, targetRotation, 5f * (float)delta);
+    // 🔄 ROTATION (left/right)
+    float rotationInput = Input.GetAxis("ui_left", "ui_right");
+    Player.Rotation += rotationInput * 0.5f * dt;
 
-		engine?.ChangeAnimation(velocity);
+    // 🚀 FORWARD / BACKWARD (up/down)
+    float moveInput = Input.GetAxis("ui_down", "ui_up");
 
-		Player.MoveAndSlide();
-	}
+    float maxSpeed = Speed;
+
+    if (moveInput != 0)
+    {
+        float currentSpeed = Speed;
+
+        // ⬇️ Slower when going backward
+        if (moveInput < 0)
+        {
+            currentSpeed /= 3f;
+            maxSpeed /= 3f;
+        }
+
+        // 🧭 Forward direction (based on rotation)
+        Vector2 forward = -Player.Transform.Y;
+
+        velocity = velocity.MoveToward(
+            forward * moveInput * currentSpeed,
+            Acceleration * dt
+        );
+    }
+    else
+    {
+        // 🧊 Apply friction when no input
+        velocity = velocity.MoveToward(Vector2.Zero, Friction * dt);
+    }
+
+    // 🚫 Clamp speed so it never exceeds max
+    velocity = velocity.LimitLength(maxSpeed);
+
+    Player.Velocity = velocity;
+
+    // 🎮 Optional: update engine animation
+    engine?.ChangeAnimation(velocity);
+
+    Player.MoveAndSlide();
+}
 
 	private void ReleaseAttack()
 	{
 		if (!isCharging) return;
-
 		isCharging = false;
-
 		float chargePercent = currentCharge / maxChargeTime;
-
 		EmitSignal(SignalName.ShootSignal, chargePercent);
-
 		currentCharge = 0f;
 	}
 

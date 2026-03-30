@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://boodt1xqlaacj"]
+
+[ext_resource type="Theme" uid="uid://gwfhsh54eyfv" path="res://arts/UiThem.tres" id="1_m5628"]
+[ext_resource type="Script" uid="uid://d20k3ybg7yrk4" path="res://scripts/General/GameOver.cs" id="2_34bmr"]
+[ext_resource type="Texture2D" uid="uid://bp8c5gaxcp3mi" path="res://arts/Starry background  - Layer 01 - Void.png" id="2_k52d1"]
+
+[node name="Node2D" type="Node2D" unique_id=257584991]
+
+[node name="CanvasGroup" type="CanvasLayer" parent="." unique_id=893945523]
+
+[node name="Control" type="Control" parent="CanvasGroup" unique_id=960095355]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_m5628")
+
+[node name="HBoxContainer" type="VBoxContainer" parent="CanvasGroup/Control" unique_id=1259171384]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -31.5
+offset_top = -10.5
+offset_right = 94.5
+offset_bottom = 10.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasGroup/Control/HBoxContainer" unique_id=1982951472]
+layout_mode = 2
+theme = ExtResource("1_m5628")
+text = "You crashed..."
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasGroup/Control/HBoxContainer" unique_id=1368626250]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasGroup/Control/HBoxContainer/MarginContainer" unique_id=1947600124]
+layout_mode = 2
+theme_override_constants/separation = 11
+script = ExtResource("2_34bmr")
+
+[node name="Shop" type="Button" parent="CanvasGroup/Control/HBoxContainer/MarginContainer/VBoxContainer" unique_id=972223343]
+layout_mode = 2
+text = "Shop
+"
+
+[node name="TryAgain" type="Button" parent="CanvasGroup/Control/HBoxContainer/MarginContainer/VBoxContainer" unique_id=764032288]
+layout_mode = 2
+text = "Retry
+"
+
+[node name="Menu" type="Button" parent="CanvasGroup/Control/HBoxContainer/MarginContainer/VBoxContainer" unique_id=362250929]
+layout_mode = 2
+text = "Main Menu
+"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2099073281]
+position = Vector2(642, 29.000002)
+scale = Vector2(3.4934206, -9.379709)
+texture = ExtResource("2_k52d1")

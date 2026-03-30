@@ -4,149 +4,43 @@
 [ext_resource type="Script" uid="uid://dlkech4n53m6j" path="res://scripts/General/Level.cs" id="1_tocei"]
 [ext_resource type="Texture2D" uid="uid://bp8c5gaxcp3mi" path="res://arts/Starry background  - Layer 01 - Void.png" id="2_tocei"]
 [ext_resource type="Texture2D" uid="uid://b4uoykgsdmyni" path="res://arts/Starry background  - Layer 02 - Stars.png" id="3_t5ss4"]
-[ext_resource type="PackedScene" uid="uid://bw7w161owec5s" path="res://Scenes/RedStar.tscn" id="4_080ts"]
 [ext_resource type="Script" uid="uid://b8vgiq350e8me" path="res://scripts/Ennemies/AsteroidManager.cs" id="4_tocei"]
-[ext_resource type="PackedScene" uid="uid://d4ddncb3gpad4" path="res://Scenes/GreenStar.tscn" id="5_cvavm"]
-[ext_resource type="PackedScene" uid="uid://bqhx50sd653iu" path="res://Scenes/Hud.tscn" id="8_vhmom"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tocei"]
-size = Vector2(57.00006, 1282)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6b1hk"]
-size = Vector2(99, 736)
+[ext_resource type="PackedScene" uid="uid://bqhx50sd653iu" path="res://Scenes/UI/Hud.tscn" id="8_vhmom"]
+[ext_resource type="PackedScene" uid="uid://dgpgbmfb4sjcw" path="res://Scenes/Parallax.tscn" id="9_86mp4"]
 
 [node name="RootLevel" type="Node2D" unique_id=1689617371]
 script = ExtResource("1_tocei")
+
+[node name="Background3" parent="." unique_id=218395768 instance=ExtResource("9_86mp4")]
 
 [node name="HudLayer" type="CanvasLayer" parent="." unique_id=1342020954]
 
 [node name="Control" parent="HudLayer" unique_id=1141076350 instance=ExtResource("8_vhmom")]
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1143259889]
+visible = false
 position = Vector2(647.99994, -1448)
 scale = Vector2(3.675, 3.675)
 texture = ExtResource("2_tocei")
 metadata/_edit_lock_ = true
 
 [node name="Background2" type="Sprite2D" parent="." unique_id=512468618]
+visible = false
 position = Vector2(650, 244.00003)
 rotation = 1.5707964
 scale = Vector2(2.6705148, 3.6746774)
 texture = ExtResource("3_t5ss4")
 metadata/_edit_lock_ = true
 
-[node name="Foreground" type="Node2D" parent="." unique_id=1006635736]
-metadata/_edit_lock_ = true
-
-[node name="RedStars" type="Node2D" parent="Foreground" unique_id=654221131]
-
-[node name="RedStar15" parent="Foreground/RedStars" unique_id=905922941 instance=ExtResource("4_080ts")]
-
-[node name="RedStar16" parent="Foreground/RedStars" unique_id=839676533 instance=ExtResource("4_080ts")]
-
-[node name="RedStar17" parent="Foreground/RedStars" unique_id=1722578182 instance=ExtResource("4_080ts")]
-
-[node name="RedStar18" parent="Foreground/RedStars" unique_id=670149201 instance=ExtResource("4_080ts")]
-
-[node name="RedStar19" parent="Foreground/RedStars" unique_id=1362059364 instance=ExtResource("4_080ts")]
-
-[node name="RedStar20" parent="Foreground/RedStars" unique_id=1666737569 instance=ExtResource("4_080ts")]
-
-[node name="RedStar21" parent="Foreground/RedStars" unique_id=1172220840 instance=ExtResource("4_080ts")]
-
-[node name="RedStar22" parent="Foreground/RedStars" unique_id=1145090952 instance=ExtResource("4_080ts")]
-
-[node name="RedStar23" parent="Foreground/RedStars" unique_id=1820966841 instance=ExtResource("4_080ts")]
-
-[node name="RedStar24" parent="Foreground/RedStars" unique_id=519904856 instance=ExtResource("4_080ts")]
-
-[node name="RedStar25" parent="Foreground/RedStars" unique_id=333779372 instance=ExtResource("4_080ts")]
-
-[node name="RedStar26" parent="Foreground/RedStars" unique_id=698508660 instance=ExtResource("4_080ts")]
-
-[node name="RedStar27" parent="Foreground/RedStars" unique_id=1679331194 instance=ExtResource("4_080ts")]
-
-[node name="RedStar28" parent="Foreground/RedStars" unique_id=1352728822 instance=ExtResource("4_080ts")]
-
-[node name="RedStar10" parent="Foreground/RedStars" unique_id=1156855599 instance=ExtResource("4_080ts")]
-
-[node name="RedStar9" parent="Foreground/RedStars" unique_id=196628361 instance=ExtResource("4_080ts")]
-
-[node name="RedStar8" parent="Foreground/RedStars" unique_id=855068517 instance=ExtResource("4_080ts")]
-
-[node name="RedStar7" parent="Foreground/RedStars" unique_id=1294296266 instance=ExtResource("4_080ts")]
-
-[node name="RedStar6" parent="Foreground/RedStars" unique_id=46873156 instance=ExtResource("4_080ts")]
-
-[node name="RedStar5" parent="Foreground/RedStars" unique_id=1686531546 instance=ExtResource("4_080ts")]
-
-[node name="RedStar4" parent="Foreground/RedStars" unique_id=1351034762 instance=ExtResource("4_080ts")]
-
-[node name="RedStar" parent="Foreground/RedStars" unique_id=1418471892 instance=ExtResource("4_080ts")]
-
-[node name="RedStar2" parent="Foreground/RedStars" unique_id=672463273 instance=ExtResource("4_080ts")]
-
-[node name="RedStar3" parent="Foreground/RedStars" unique_id=619795768 instance=ExtResource("4_080ts")]
-
-[node name="RedStar11" parent="Foreground/RedStars" unique_id=126608837 instance=ExtResource("4_080ts")]
-
-[node name="RedStar12" parent="Foreground/RedStars" unique_id=1771093317 instance=ExtResource("4_080ts")]
-
-[node name="RedStar13" parent="Foreground/RedStars" unique_id=1921600704 instance=ExtResource("4_080ts")]
-
-[node name="RedStar14" parent="Foreground/RedStars" unique_id=523432975 instance=ExtResource("4_080ts")]
-
-[node name="GreenStars" type="Node2D" parent="Foreground" unique_id=1385543106]
-
-[node name="GreenStar6" parent="Foreground/GreenStars" unique_id=182734081 instance=ExtResource("5_cvavm")]
-
-[node name="GreenStar" parent="Foreground/GreenStars/GreenStar6" unique_id=938625587 instance=ExtResource("5_cvavm")]
-
-[node name="GreenStar5" parent="Foreground/GreenStars" unique_id=1323853918 instance=ExtResource("5_cvavm")]
-
-[node name="GreenStar4" parent="Foreground/GreenStars" unique_id=1652232385 instance=ExtResource("5_cvavm")]
-
-[node name="GreenStar3" parent="Foreground/GreenStars" unique_id=1206902040 instance=ExtResource("5_cvavm")]
-
-[node name="GreenStar2" parent="Foreground/GreenStars" unique_id=463783798 instance=ExtResource("5_cvavm")]
-
-[node name="GreenStar" parent="Foreground/GreenStars" unique_id=536240603 instance=ExtResource("5_cvavm")]
-
 [node name="PlayerObject" parent="." unique_id=407801111 instance=ExtResource("1_pkd3b")]
-position = Vector2(429, 532)
+position = Vector2(623, 603)
 
-[node name="Borders" type="Node2D" parent="." unique_id=1869864548]
-metadata/_edit_lock_ = true
-
-[node name="BottomBorder" type="StaticBody2D" parent="Borders" unique_id=314616764]
-collision_layer = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/BottomBorder" unique_id=232637064]
-position = Vector2(643, 691)
-rotation = 1.5707964
-shape = SubResource("RectangleShape2D_tocei")
-
-[node name="LeftBorder" type="StaticBody2D" parent="Borders" unique_id=832921648]
-collision_layer = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/LeftBorder" unique_id=2032328735]
-position = Vector2(39.5, 368)
-shape = SubResource("RectangleShape2D_6b1hk")
-
-[node name="RightBorder" type="StaticBody2D" parent="Borders" unique_id=1532285229]
-collision_layer = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/RightBorder" unique_id=708168663]
-position = Vector2(1256, 367)
-shape = SubResource("RectangleShape2D_6b1hk")
-
-[node name="TopBorder" type="StaticBody2D" parent="Borders" unique_id=1455007137]
-collision_layer = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/TopBorder" unique_id=2080580120]
-position = Vector2(652, 28)
-rotation = 1.5707964
-shape = SubResource("RectangleShape2D_tocei")
+[node name="Camera2D" type="Camera2D" parent="PlayerObject" unique_id=1966454760]
+scale = Vector2(0.57471263, 0.57471263)
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_horizontal_offset = 0.2
+drag_vertical_offset = 0.16
 
 [node name="MeteorTimer" type="Timer" parent="." unique_id=173214226]
 wait_time = 0.206

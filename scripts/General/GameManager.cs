@@ -1,16 +1,20 @@
 using Godot;
-using System;
+using Godot.Collections;
+using System.Collections.Generic;
 
 public partial class GameManager : Node
 {
+
 	public int Score = 0;
-	public PackedScene GameOverScene=  GD.Load<PackedScene>("res://Scenes/GameOver.tscn");
+	public Godot.Collections.Dictionary<string, PackedScene> Scenes = new Godot.Collections.Dictionary<string, PackedScene>()
+	{
+		{ "GameOver", GD.Load<PackedScene>("res://Scenes/UI/GameOver.tscn") },
+		{ "SurvivalMode" , GD.Load<PackedScene>("res://Scenes/LevelOne.tscn") }
+	};
 	public static GameManager Instance { get; private set; }
 
 	[Signal]
 	public delegate void ScoreChangedEventHandler(int newScore);
-	[Signal]
-	public delegate void PlayerHealthChangedEventHandler(float max, float current);
 
 	public override void _Ready()
 	{
@@ -23,14 +27,22 @@ public partial class GameManager : Node
 		EmitSignal(SignalName.ScoreChanged, Score);
 	}
 
-	public void OnHealthUpdate(float maxHealth, float currentHealth)
+	public void ChangeScene(string ScenePath)
 	{
-		GD.Print($"Health: {currentHealth}/{maxHealth}");
-		EmitSignal(SignalName.PlayerHealthChanged, maxHealth, currentHealth);
-		if (currentHealth <= 0)
+		if (!Scenes.ContainsKey(ScenePath))
 		{
-			GetTree().CallDeferred(SceneTree.MethodName.ChangeSceneToPacked, GameOverScene);
-
+			GD.PrintErr($"Scene '{ScenePath}' not found in Scenes dictionary!");
+			return;
 		}
+		if(ScenePath == "GameOver")
+		{
+			Score = 0;
+		}
+		CallDeferred(nameof(_ChangeSceneDeferred), ScenePath);
+
+	}
+	private void _ChangeSceneDeferred(string sceneKey)
+	{
+		GetTree().ChangeSceneToPacked(Scenes[sceneKey]);
 	}
 }

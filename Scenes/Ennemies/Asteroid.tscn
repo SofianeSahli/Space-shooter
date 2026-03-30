@@ -64,7 +64,7 @@ CurrentHealth = 50.0
 MaxHealth = 50.0
 
 [connection signal="body_entered" from="." to="." method="CollisionDetected"]
-[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="Destroy"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="OnAnimationFinished"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="OnAnimationFinished"]
 [connection signal="ShouldDie" from="HealthIndicator" to="." method="ShouldDie"]
 [connection signal="TookDamage" from="HealthIndicator" to="." method="TookDamage"]

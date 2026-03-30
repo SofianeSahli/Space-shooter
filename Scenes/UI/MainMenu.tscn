@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://ctcxn258nf4hv"]
+
+[ext_resource type="Theme" uid="uid://gwfhsh54eyfv" path="res://arts/UiThem.tres" id="1_g18y6"]
+[ext_resource type="Texture2D" uid="uid://bdayuymcqrcmn" path="res://arts/Backgrounds/Blue Nebula 1 - 1024x1024.png" id="1_mjmdf"]
+[ext_resource type="Script" uid="uid://d8sqlnj3u44j" path="res://scripts/General/MainMenu.cs" id="3_72sra"]
+
+[node name="Node2D" type="Sprite2D" unique_id=378379124]
+position = Vector2(642, 373.5)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_mjmdf")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1752068277]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=1269409851]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_g18y6")
+
+[node name="HBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control" unique_id=1458528713]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/HBoxContainer" unique_id=50210242]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_top = 90
+
+[node name="HBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/HBoxContainer/MarginContainer" unique_id=1737677048]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/HBoxContainer/MarginContainer/HBoxContainer" unique_id=293993152]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 0
+text = "Y.A.S.S"
+
+[node name="Label2" type="Label" parent="CanvasLayer/Control/HBoxContainer/MarginContainer/HBoxContainer" unique_id=2122457290]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Yet Another Space Shooter"
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Control/HBoxContainer" unique_id=2101062264]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_top = 150
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/HBoxContainer/MarginContainer2" unique_id=707699696]
+layout_mode = 2
+theme = ExtResource("1_g18y6")
+theme_override_constants/separation = 15
+script = ExtResource("3_72sra")
+
+[node name="StoryMode" type="Button" parent="CanvasLayer/Control/HBoxContainer/MarginContainer2/VBoxContainer" unique_id=1979071190]
+layout_mode = 2
+disabled = true
+text = "Story
+"
+
+[node name="SurvivalMode" type="Button" parent="CanvasLayer/Control/HBoxContainer/MarginContainer2/VBoxContainer" unique_id=749937687]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Survival Mode"
+
+[node name="Params" type="Button" parent="CanvasLayer/Control/HBoxContainer/MarginContainer2/VBoxContainer" unique_id=1251073304]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Params
+
+"
+
+[node name="Credits" type="Button" parent="CanvasLayer/Control/HBoxContainer/MarginContainer2/VBoxContainer" unique_id=134201497]
+layout_mode = 2
+text = "Credits
+"
+
+[node name="Exit" type="Button" parent="CanvasLayer/Control/HBoxContainer/MarginContainer2/VBoxContainer" unique_id=876292168]
+layout_mode = 2
+text = "Exit
+"

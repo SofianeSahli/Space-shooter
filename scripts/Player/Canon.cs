@@ -24,13 +24,17 @@ public partial class Canon : Marker2D
 
 		var projectile = Laser.Instantiate<Bullet>();
 		float damage = Mathf.Lerp(10f, 100f, chargePercent);
-		float speed = Mathf.Lerp(300f, 1000f, chargePercent);
+		float speed = Mathf.Lerp(1800f, 3600f, chargePercent);
 		float scale = Mathf.Lerp(0.5f, 2.0f, chargePercent);
 		projectile.ImpactDamage = damage;
 		projectile.Speed = speed;
-		projectile.Scale = Vector2.One * scale;
+		projectile.DesiredScale = Vector2.One * scale;
 		projectile.GlobalPosition = GlobalPosition;
+
+		projectile.GlobalPosition = GetParent<PlayerObject>().GlobalPosition;
+		projectile.Rotation = GetParent<PlayerObject>().Rotation;
 		GetTree().CurrentScene.AddChild(projectile);
+
 		ShootTimer.Start();
 	}
 

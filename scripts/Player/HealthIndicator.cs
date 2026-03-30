@@ -16,6 +16,8 @@ public partial class HealthIndicator : Node2D
     public delegate void ShouldDieEventHandler();
     [Signal]
     public delegate void TookDamageEventHandler();
+    [Signal]
+    public delegate void PlayerTookDamageEventHandler(float CurrentHeal, float MaxHealth);
     public override void _Ready()
     {
         UpdateHealth(0);
@@ -26,7 +28,12 @@ public partial class HealthIndicator : Node2D
         CurrentHealth += damage;
         if (IsPlayer)
         {
-            GameManager.Instance.OnHealthUpdate(MaxHealth, CurrentHealth);
+            EmitSignal(SignalName.PlayerTookDamage, CurrentHealth, MaxHealth);
+            if (CurrentHealth < 0)
+            {
+                EmitSignal(SignalName.ShouldDie);
+            
+            }
         }
         else
         {

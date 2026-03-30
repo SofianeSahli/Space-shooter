@@ -3,8 +3,10 @@ using System;
 
 public partial class Asteroids : Area2D
 {
-	[Export] float MaxSpeed = 200f;
-	[Export] float MinSpeed = 200f;
+
+	float Score = 50f;
+	[Export] float MaxSpeed = 750f;
+	[Export] float MinSpeed = 500f;
 	[Export] float RotationMaxAngle;
 	[Export] float RotationMinAngle;
 	[Export] float ImpactDamage;
@@ -18,13 +20,24 @@ public partial class Asteroids : Area2D
 
 	public override void _Ready()
 	{
-		var width = GetViewport().GetVisibleRect().Size.X;
-		var randomX = Randomizer.RandiRange(0, (int)width - 200);
-		var randomY = Randomizer.RandiRange(-150, -50);
+		var camera = GetViewport().GetCamera2D();
+		if (camera == null)
+			return;
+
+		var screenSize = GetViewport().GetVisibleRect().Size;
+		var center = camera.GlobalPosition;
+		var halfSize = screenSize * 0.5f * camera.Zoom;
+		var left = center.X - halfSize.X;
+		var right = center.X + halfSize.X;
+		var top = center.Y - halfSize.Y;
+		var bottom = center.Y + halfSize.Y;
+		var randomX = Randomizer.RandfRange(left, right);
+		var randomY = Randomizer.RandfRange(top - 150, top - 50);
 		Position = new Vector2(randomX, randomY);
 		float randomScale = Randomizer.RandfRange(0.09f, 0.4f);
 		Scale = new Vector2(randomScale, randomScale);
 		float t = Mathf.InverseLerp(0.09f, 0.4f, randomScale);
+		t = Mathf.Clamp(t, 0f, 1f);
 		Speed = Mathf.Lerp(MaxSpeed, MinSpeed, t);
 		ImpactDamage = Mathf.Lerp(20f, 50f, t);
 		RotationAngle = Mathf.Lerp(RotationMinAngle, RotationMaxAngle, t);
@@ -38,8 +51,7 @@ public partial class Asteroids : Area2D
 
 	public override void _Process(double delta)
 	{
-		if (isDying) return; // ✅ stop movement when dying
-
+		if (isDying) return;
 		Position += new Vector2(MouvementX, 1f) * Speed * (float)delta;
 		Rotate(RotationAngle);
 	}
@@ -61,16 +73,25 @@ public partial class Asteroids : Area2D
 		if (Collider != null)
 			Collider.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
 		Animator.Play("Explosion");
+		GameManager.Instance.AddScore((int)Score);
 	}
 
 	private void OnAnimationFinished()
 	{
+		GD.Print("da");
 		QueueFree();
 	}
 	public void TookDamage()
-	{ 
-		if(Animator == null)
-		return;
+	{
+		if (Animator == null)
+			return;
 		Animator.Frame = 2;
 	}
+
+	public override void _ExitTree()
+	{
+		base._ExitTree();
+		Animator.AnimationFinished -= OnAnimationFinished;
+	}
+
 }
