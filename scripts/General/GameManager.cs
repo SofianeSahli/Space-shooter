@@ -6,6 +6,7 @@ public partial class GameManager : Node
 {
 
 	public int Score = 0;
+	public Rect2 WorldBounds = new Rect2(-5000, -5000, 10000, 10000);
 	public Godot.Collections.Dictionary<string, PackedScene> Scenes = new Godot.Collections.Dictionary<string, PackedScene>()
 	{
 		{ "GameOver", GD.Load<PackedScene>("res://Scenes/UI/GameOver.tscn") },
@@ -34,7 +35,7 @@ public partial class GameManager : Node
 			GD.PrintErr($"Scene '{ScenePath}' not found in Scenes dictionary!");
 			return;
 		}
-		if(ScenePath == "GameOver")
+		if (ScenePath == "GameOver")
 		{
 			Score = 0;
 		}

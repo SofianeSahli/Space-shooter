@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://dgmwnfupaujhx"]
+
+[ext_resource type="Script" uid="uid://f3mxggdwqqjh" path="res://scripts/LaserImpact.cs" id="1_ltu8l"]
+
+[sub_resource type="Shader" id="Shader_bcfog"]
+code = "shader_type canvas_item;
+
+void fragment()
+{
+    vec2 uv = UV;
+
+    vec2 center = vec2(0.5);
+    float dist = distance(uv, center);
+
+    // 🔥 MUCH bigger glow radius
+    float glow = smoothstep(1.0, 0.0, dist);
+
+    // 🔥 bigger core
+    float core = smoothstep(0.4, 0.0, dist);
+
+    float intensity = glow * 1.5 + core * 2.0;
+
+    // 🔴 strong red/orange
+    vec3 color = mix(
+        vec3(1.0, 0.05, 0.02),
+        vec3(1.0, 0.4, 0.1),
+        core
+    );
+
+    COLOR = vec4(color * intensity, intensity);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ltu8l"]
+shader = SubResource("Shader_bcfog")
+
+[sub_resource type="Curve" id="Curve_bcfog"]
+_limits = [0.0, 200.0, 0.0, 1.0]
+_data = [Vector2(0.040498443, 183.79051), 0.0, 0.0, 0, 0, Vector2(0.2990654, 73.56607), 0.0, 0.0, 0, 0, Vector2(0.8909657, 49.25186), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_ltu8l"]
+curve = SubResource("Curve_bcfog")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bcfog"]
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(5, 5, 1)
+angle_min = -238.4
+angle_max = 360.00003
+direction = Vector3(15, 20, 0)
+spread = 180.0
+initial_velocity_min = 150.0
+initial_velocity_max = 150.0
+gravity = Vector3(0, 50, 0)
+linear_accel_min = -2.2351742e-06
+linear_accel_max = 26.319998
+radial_accel_min = 1.5999978
+radial_accel_max = 10.809998
+scale_max = 1.6999999
+scale_over_velocity_min = 1.5
+scale_over_velocity_max = 1.5
+anim_speed_min = 10.61
+anim_speed_max = 12.04
+anim_speed_curve = SubResource("CurveTexture_ltu8l")
+
+[node name="LaserImpact" type="Node2D" unique_id=63115141]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1149037743]
+material = SubResource("ShaderMaterial_ltu8l")
+emitting = false
+amount = 150
+one_shot = true
+explosiveness = 0.83
+trail_lifetime = 2.49
+process_material = SubResource("ParticleProcessMaterial_bcfog")
+script = ExtResource("1_ltu8l")

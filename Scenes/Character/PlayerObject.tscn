@@ -33,12 +33,13 @@
 [ext_resource type="Texture2D" uid="uid://do57tyr41tqhv" path="res://arts/Explosion/20_explosion.png" id="29_l87ni"]
 [ext_resource type="Texture2D" uid="uid://dwhbq0rhry3s4" path="res://arts/Explosion/21_explosion.png" id="30_eldix"]
 
-[sub_resource type="Resource" id="Resource_j205e"]
+[sub_resource type="Resource" id="Resource_5a1qa"]
 resource_local_to_scene = true
 script = ExtResource("8_alcsi")
-Speed = 450.0
-Acceleration = 450.0
-Friction = 900.0
+Speed = 800.0
+Acceleration = 250.0
+Friction = 2.0
+RotationSpeed = 2.0
 metadata/_custom_type_script = "uid://d10iglnkdck5e"
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4lkub"]
@@ -116,7 +117,6 @@ animations = [{
 }]
 
 [node name="PlayerObject" type="CharacterBody2D" unique_id=833827351 groups=["PlayerObject"]]
-scale = Vector2(1.74, 1.74)
 collision_mask = 6
 script = ExtResource("1_p2sgo")
 Damaged = ExtResource("2_7jct2")
@@ -145,12 +145,10 @@ polygon = PackedVector2Array(-0.57471263, -11.494253, -4.597701, -9.195402, -7.4
 position = Vector2(-0.57471263, 10.91954)
 
 [node name="BaseEngine" parent="EngineMarker" unique_id=1234698946 instance=ExtResource("7_5a1qa")]
-Stats = SubResource("Resource_j205e")
+Stats = SubResource("Resource_5a1qa")
 
 [node name="ControlNode" type="Node2D" parent="." unique_id=1570221039]
 script = ExtResource("1_dnrfy")
-Speed = 200.0
-Acceleration = 300.0
 
 [node name="HealthIndicator" type="Node2D" parent="." unique_id=494965518]
 script = ExtResource("5_0cra0")

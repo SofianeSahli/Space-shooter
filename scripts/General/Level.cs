@@ -18,12 +18,11 @@ public partial class Level : Node2D
 
     public void TimerTimeOut()
     {
-        RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator();
-        var random = randomNumberGenerator.RandiRange(0, 2);
-        var Asteroid = AsteroidBluePrint.Instantiate();
-        AsteroidManager.AddChild(Asteroid);
+        /*    var Asteroid = AsteroidBluePrint.Instantiate();
+            AsteroidManager.AddChild(Asteroid);
+        */
     }
-  
+
 
     private void SelectStarsParentAndLayout(string ParentName)
     {

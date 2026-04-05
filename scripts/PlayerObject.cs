@@ -15,6 +15,7 @@ public partial class PlayerObject : CharacterBody2D
 	private AnimatedSprite2D AnimatedSprite;
 
 	private CollisionPolygon2D CollisionPolygon;
+	Camera2D Camera;
 	public override void _Ready()
 	{
 		base._Ready();
@@ -26,7 +27,6 @@ public partial class PlayerObject : CharacterBody2D
 		AnimatedSprite.AnimationFinished += OnAnimationFinished;
 		CollisionPolygon = GetNode<CollisionPolygon2D>("CollisionPolygon2D");
 	}
-
 	public void HealthUpdated(float current, float max)
 	{
 		float healthPercent = current / max;
@@ -52,6 +52,7 @@ public partial class PlayerObject : CharacterBody2D
 	{
 		PlayerSprite.Visible = false;
 		AnimatedSprite.Visible = true;
+		GetNode<Node2D>("EngineMarker").QueueFree();
 		AnimatedSprite.Play("Explosion");
 		CollisionPolygon.SetDeferred("disabled", true); ;
 	}

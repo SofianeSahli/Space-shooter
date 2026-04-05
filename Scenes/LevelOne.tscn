@@ -2,14 +2,17 @@
 
 [ext_resource type="PackedScene" uid="uid://cp374h8dax5f7" path="res://Scenes/Character/PlayerObject.tscn" id="1_pkd3b"]
 [ext_resource type="Script" uid="uid://dlkech4n53m6j" path="res://scripts/General/Level.cs" id="1_tocei"]
-[ext_resource type="Texture2D" uid="uid://bp8c5gaxcp3mi" path="res://arts/Starry background  - Layer 01 - Void.png" id="2_tocei"]
-[ext_resource type="Texture2D" uid="uid://b4uoykgsdmyni" path="res://arts/Starry background  - Layer 02 - Stars.png" id="3_t5ss4"]
+[ext_resource type="PackedScene" uid="uid://dgmwnfupaujhx" path="res://Scenes/Bullets/BulletImpact.tscn" id="2_ufbp1"]
 [ext_resource type="Script" uid="uid://b8vgiq350e8me" path="res://scripts/Ennemies/AsteroidManager.cs" id="4_tocei"]
+[ext_resource type="Script" uid="uid://dtuucmvie338f" path="res://scripts/Player/PlayerCamera.cs" id="7_vhmom"]
 [ext_resource type="PackedScene" uid="uid://bqhx50sd653iu" path="res://Scenes/UI/Hud.tscn" id="8_vhmom"]
 [ext_resource type="PackedScene" uid="uid://dgpgbmfb4sjcw" path="res://Scenes/Parallax.tscn" id="9_86mp4"]
 
 [node name="RootLevel" type="Node2D" unique_id=1689617371]
 script = ExtResource("1_tocei")
+
+[node name="LaserImpact" parent="." unique_id=397705475 instance=ExtResource("2_ufbp1")]
+scale = Vector2(2, 2)
 
 [node name="Background3" parent="." unique_id=218395768 instance=ExtResource("9_86mp4")]
 
@@ -17,37 +20,23 @@ script = ExtResource("1_tocei")
 
 [node name="Control" parent="HudLayer" unique_id=1141076350 instance=ExtResource("8_vhmom")]
 
-[node name="Background" type="Sprite2D" parent="." unique_id=1143259889]
-visible = false
-position = Vector2(647.99994, -1448)
-scale = Vector2(3.675, 3.675)
-texture = ExtResource("2_tocei")
-metadata/_edit_lock_ = true
-
-[node name="Background2" type="Sprite2D" parent="." unique_id=512468618]
-visible = false
-position = Vector2(650, 244.00003)
-rotation = 1.5707964
-scale = Vector2(2.6705148, 3.6746774)
-texture = ExtResource("3_t5ss4")
-metadata/_edit_lock_ = true
-
-[node name="PlayerObject" parent="." unique_id=407801111 instance=ExtResource("1_pkd3b")]
-position = Vector2(623, 603)
-
-[node name="Camera2D" type="Camera2D" parent="PlayerObject" unique_id=1966454760]
-scale = Vector2(0.57471263, 0.57471263)
-position_smoothing_enabled = true
-drag_horizontal_enabled = true
-drag_horizontal_offset = 0.2
-drag_vertical_offset = 0.16
-
 [node name="MeteorTimer" type="Timer" parent="." unique_id=173214226]
 wait_time = 0.206
 autostart = true
 
 [node name="AsteroidManager" type="Node2D" parent="." unique_id=1557982094]
-position = Vector2(2, 16)
+position = Vector2(70, 30)
 script = ExtResource("4_tocei")
+
+[node name="PlayerObject" parent="." unique_id=833827351 instance=ExtResource("1_pkd3b")]
+position = Vector2(597, 386)
+
+[node name="Camera2D" type="Camera2D" parent="PlayerObject" unique_id=211750514]
+process_callback = 0
+limit_smoothed = true
+position_smoothing_enabled = true
+drag_horizontal_offset = 0.07
+drag_vertical_offset = 0.1
+script = ExtResource("7_vhmom")
 
 [connection signal="timeout" from="MeteorTimer" to="." method="TimerTimeOut"]

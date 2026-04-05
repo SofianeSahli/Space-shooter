@@ -3,12 +3,39 @@
 [ext_resource type="Theme" uid="uid://gwfhsh54eyfv" path="res://arts/UiThem.tres" id="1_8vcfy"]
 [ext_resource type="FontFile" uid="uid://bu5ipyv113ec8" path="res://arts/Fonts/CodexItalic-9Ma52.ttf" id="1_chfh5"]
 [ext_resource type="Script" uid="uid://cr5855bc7hy05" path="res://scripts/General/Hud.cs" id="2_puttd"]
+[ext_resource type="Script" uid="uid://lbgqogvpfg8c" path="res://Scenes/UI/Radar.cs" id="4_3ov73"]
+[ext_resource type="Shader" uid="uid://cbh3qfpytdi7n" path="res://Scenes/UI/Hud.gdshader" id="4_duido"]
+[ext_resource type="Shader" uid="uid://0jgbhin7jqsb" path="res://Shaders/Speed.gdshader" id="4_kdvds"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_npgtc"]
+shader = ExtResource("4_kdvds")
+shader_parameter/value = 0.5
+shader_parameter/max_speed_value = 1.0
+shader_parameter/radius = 0.4
+shader_parameter/thickness = 0.08
+shader_parameter/bar_count = 40.0
+shader_parameter/bar_width = 0.02
+shader_parameter/pulse_speed = 4.0
+shader_parameter/glow_intensity = 0.5
+shader_parameter/show_needle = true
+shader_parameter/show_text = true
+shader_parameter/color_low = Vector3(0.2, 1, 0.3)
+shader_parameter/color_mid = Vector3(1, 0.8, 0.2)
+shader_parameter/color_high = Vector3(1, 0.2, 0.2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kdvds"]
+shader = ExtResource("4_duido")
+shader_parameter/radar_color = Color(0.52423716, 0.52254903, 0.23540854, 1)
+shader_parameter/speed = 3.04900014156762
+shader_parameter/line_thickness = 0.722000034295
+shader_parameter/radar_radius = 1.0
 
 [node name="Control" type="Control" unique_id=1141076350]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_8vcfy")
@@ -16,12 +43,9 @@ script = ExtResource("2_puttd")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=2062677232]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -636.0
-offset_right = 641.0
-offset_bottom = 45.0
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 68.0
 grow_horizontal = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
@@ -56,55 +80,180 @@ text = "Time Alive"
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="BottomLeftStatus" type="MarginContainer" parent="." unique_id=796130381]
+[node name="BottomContainer" type="HBoxContainer" parent="." unique_id=1279990767]
 layout_mode = 1
-anchors_preset = 2
+anchors_preset = 12
 anchor_top = 1.0
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -31.0
-offset_right = 325.0
+offset_top = -200.0
+grow_horizontal = 2
 grow_vertical = 0
+theme_override_constants/separation = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BottomContainer" unique_id=810453581]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BottomLeftStatus" type="MarginContainer" parent="BottomContainer/HBoxContainer" unique_id=796130381]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_bottom = 15
 
-[node name="VBoxContainer" type="VBoxContainer" parent="BottomLeftStatus" unique_id=1241375991]
+[node name="Box" type="VBoxContainer" parent="BottomContainer/HBoxContainer/BottomLeftStatus" unique_id=705609124]
+layout_mode = 2
+
+[node name="HealthContainer" type="VBoxContainer" parent="BottomContainer/HBoxContainer/BottomLeftStatus/Box" unique_id=1241375991]
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="Label" type="Label" parent="BottomLeftStatus/VBoxContainer" unique_id=790239126]
+[node name="Label" type="Label" parent="BottomContainer/HBoxContainer/BottomLeftStatus/Box/HealthContainer" unique_id=790239126]
 layout_mode = 2
 size_flags_vertical = 0
 text = "Health"
 
-[node name="HealthBar" type="HSlider" parent="BottomLeftStatus/VBoxContainer" unique_id=1794201103]
+[node name="HealthBar" type="HSlider" parent="BottomContainer/HBoxContainer/BottomLeftStatus/Box/HealthContainer" unique_id=1794201103]
 modulate = Color(0.30588236, 1, 0.043137256, 1)
 layout_mode = 2
 size_flags_vertical = 8
 theme = ExtResource("1_8vcfy")
 value = 50.0
 
-[node name="BottomCenterStatus" type="MarginContainer" parent="." unique_id=1692565587]
+[node name="ChargedShootContainer" type="VBoxContainer" parent="BottomContainer/HBoxContainer/BottomLeftStatus/Box" unique_id=983806363]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="BottomContainer/HBoxContainer/BottomLeftStatus/Box/ChargedShootContainer" unique_id=1473978680]
+layout_mode = 2
+text = "Charged Shot"
+
+[node name="CannonCharge" type="HSlider" parent="BottomContainer/HBoxContainer/BottomLeftStatus/Box/ChargedShootContainer" unique_id=1315101446]
+layout_mode = 2
+max_value = 1.0
+step = 0.1
+
+[node name="EngineBoostContainer" type="VBoxContainer" parent="BottomContainer/HBoxContainer/BottomLeftStatus/Box" unique_id=432281]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="BottomContainer/HBoxContainer/BottomLeftStatus/Box/EngineBoostContainer" unique_id=1671703877]
+layout_mode = 2
+text = "Engin Boost"
+
+[node name="EngineBoost" type="HSlider" parent="BottomContainer/HBoxContainer/BottomLeftStatus/Box/EngineBoostContainer" unique_id=940715543]
+layout_mode = 2
+step = 0.1
+
+[node name="BottomCenterStatus" type="MarginContainer" parent="BottomContainer/HBoxContainer" unique_id=674219261]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 35
+theme_override_constants/margin_right = 5
+
+[node name="SpeedMeter" type="ColorRect" parent="BottomContainer/HBoxContainer/BottomCenterStatus" unique_id=947855600]
+material = SubResource("ShaderMaterial_npgtc")
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="BottomRightStatus" type="MarginContainer" parent="BottomContainer/HBoxContainer" unique_id=393959928]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="Panel" type="Panel" parent="BottomContainer/HBoxContainer/BottomRightStatus" unique_id=346777840]
+layout_mode = 2
+script = ExtResource("4_3ov73")
+
+[node name="Radar" type="ColorRect" parent="BottomContainer/HBoxContainer/BottomRightStatus/Panel" unique_id=981066824]
+z_index = -3
+material = SubResource("ShaderMaterial_kdvds")
+clip_contents = true
+custom_minimum_size = Vector2(180, 180)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 5.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Icons" type="Node2D" parent="BottomContainer/HBoxContainer/BottomRightStatus/Panel/Radar" unique_id=401868437]
+
+[node name="Compass" type="Control" parent="BottomContainer/HBoxContainer/BottomRightStatus/Panel" unique_id=1508512914]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -5.0
+offset_top = -5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="N" type="Label" parent="BottomContainer/HBoxContainer/BottomRightStatus/Panel/Compass" unique_id=1138996393]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 2.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "N"
+horizontal_alignment = 1
+
+[node name="S" type="Label" parent="BottomContainer/HBoxContainer/BottomRightStatus/Panel/Compass" unique_id=844268966]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -184.0
-offset_top = -40.0
-offset_right = 163.0
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_constants/margin_bottom = 15
+text = "S"
+horizontal_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="BottomCenterStatus" unique_id=983806363]
-layout_mode = 2
+[node name="W" type="Label" parent="BottomContainer/HBoxContainer/BottomRightStatus/Panel/Compass" unique_id=339087123]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 2.0
+offset_top = -9.0
+offset_right = 42.0
+offset_bottom = 12.0
+grow_vertical = 2
+text = "W"
+vertical_alignment = 1
 
-[node name="Label" type="Label" parent="BottomCenterStatus/VBoxContainer" unique_id=1473978680]
-layout_mode = 2
-text = "Charged Shot"
-
-[node name="CannonCharge" type="HSlider" parent="BottomCenterStatus/VBoxContainer" unique_id=1315101446]
-layout_mode = 2
-max_value = 1.0
-step = 0.1
+[node name="E" type="Label" parent="BottomContainer/HBoxContainer/BottomRightStatus/Panel/Compass" unique_id=1447981967]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -39.0
+offset_top = -9.0
+offset_right = 1.0
+offset_bottom = 12.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "E"
+horizontal_alignment = 2

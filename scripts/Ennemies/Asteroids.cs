@@ -5,8 +5,8 @@ public partial class Asteroids : Area2D
 {
 
 	float Score = 50f;
-	[Export] float MaxSpeed = 750f;
-	[Export] float MinSpeed = 500f;
+	[Export] float MaxSpeed = 500f;
+	[Export] float MinSpeed = 350f;
 	[Export] float RotationMaxAngle;
 	[Export] float RotationMinAngle;
 	[Export] float ImpactDamage;
@@ -34,7 +34,7 @@ public partial class Asteroids : Area2D
 		var randomX = Randomizer.RandfRange(left, right);
 		var randomY = Randomizer.RandfRange(top - 150, top - 50);
 		Position = new Vector2(randomX, randomY);
-		float randomScale = Randomizer.RandfRange(0.09f, 0.4f);
+		float randomScale = Randomizer.RandfRange(0.09f, 0.2f);
 		Scale = new Vector2(randomScale, randomScale);
 		float t = Mathf.InverseLerp(0.09f, 0.4f, randomScale);
 		t = Mathf.Clamp(t, 0f, 1f);
@@ -78,7 +78,6 @@ public partial class Asteroids : Area2D
 
 	private void OnAnimationFinished()
 	{
-		GD.Print("da");
 		QueueFree();
 	}
 	public void TookDamage()

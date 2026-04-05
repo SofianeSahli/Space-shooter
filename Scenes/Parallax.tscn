@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dgpgbmfb4sjcw"]
 
-[ext_resource type="Texture2D" uid="uid://bp8c5gaxcp3mi" path="res://arts/Starry background  - Layer 01 - Void.png" id="1_cobhc"]
+[ext_resource type="Texture2D" uid="uid://bp8c5gaxcp3mi" path="res://arts/Starry background  - Layer 01 - Void.png" id="1_1na8k"]
+[ext_resource type="Shader" uid="uid://cq88jnh2183d5" path="res://Scenes/Parallax.gdshader" id="1_nam1v"]
 [ext_resource type="Texture2D" uid="uid://bpv4cwpn82x10" path="res://arts/Backgrounds/Animated/tile000.png" id="2_1na8k"]
 [ext_resource type="Texture2D" uid="uid://7a7bll2rrvj" path="res://arts/Backgrounds/Animated/tile001.png" id="3_nam1v"]
 [ext_resource type="Texture2D" uid="uid://cremjjkqh13c8" path="res://arts/Backgrounds/Animated/tile002.png" id="4_ojyoj"]
@@ -10,8 +11,18 @@
 [ext_resource type="Texture2D" uid="uid://dfeh8nsn3k7lh" path="res://arts/Backgrounds/Animated/tile006.png" id="8_n7cpx"]
 [ext_resource type="Texture2D" uid="uid://dhadrht7mxrwq" path="res://arts/Backgrounds/Animated/tile007.png" id="9_4lkka"]
 [ext_resource type="Texture2D" uid="uid://b4ajcmocwdcny" path="res://arts/Backgrounds/Animated/tile008.png" id="10_a417p"]
-[ext_resource type="PackedScene" uid="uid://bw7w161owec5s" path="res://Scenes/RedStar.tscn" id="11_ojyoj"]
-[ext_resource type="PackedScene" uid="uid://d4ddncb3gpad4" path="res://Scenes/GreenStar.tscn" id="12_ult31"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nam1v"]
+shader = ExtResource("1_nam1v")
+shader_parameter/target_resolution = Vector2(1280, 730)
+shader_parameter/scroll_speed = Vector2(0, 0)
+shader_parameter/zoom = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ojyoj"]
+shader = ExtResource("1_nam1v")
+shader_parameter/target_resolution = Vector2(1280, 720)
+shader_parameter/scroll_speed = Vector2(0, 0)
+shader_parameter/zoom = 1.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_r42fk"]
 animations = [{
@@ -51,105 +62,29 @@ animations = [{
 [node name="Background" type="Node2D" unique_id=218395768]
 
 [node name="Parallax2D" type="Parallax2D" parent="." unique_id=2010811977]
-repeat_size = Vector2(1, 1)
-autoscroll = Vector2(0.2, 0.2)
+scroll_scale = Vector2(1.5, 1.5)
+scroll_offset = Vector2(0, 10)
+repeat_size = Vector2(1280, 720)
+autoscroll = Vector2(5, 5)
 screen_offset = Vector2(0.1, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=146596011]
-position = Vector2(745.92004, 2874)
-scale = Vector2(4.120001, 1)
-texture = ExtResource("1_cobhc")
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=102256017]
+material = SubResource("ShaderMaterial_nam1v")
+position = Vector2(1307.2999, 2859)
+scale = Vector2(7.348611, 1)
+texture = ExtResource("1_1na8k")
 
 [node name="Parallax2D2" type="Parallax2D" parent="." unique_id=973471652]
 scale = Vector2(1.536, 1)
-scroll_scale = Vector2(3, 3)
-repeat_size = Vector2(1, 1)
-autoscroll = Vector2(0.5, 0.5)
+repeat_size = Vector2(720, 720)
+autoscroll = Vector2(3, 3)
+limit_begin = Vector2(0, 0)
+limit_end = Vector2(0, 0)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Parallax2D2" unique_id=584250408]
-position = Vector2(486.9792, 406)
-scale = Vector2(1.5208325, 2.28)
+material = SubResource("ShaderMaterial_ojyoj")
+position = Vector2(516.2761, 421.00012)
+scale = Vector2(1.6133628, 2.2833335)
 sprite_frames = SubResource("SpriteFrames_r42fk")
 autoplay = "default"
-frame_progress = 0.4478289
-
-[node name="Parallax2D3" type="Parallax2D" parent="." unique_id=860779990]
-autoscroll = Vector2(0.9, 0.9)
-
-[node name="Foreground" type="Node2D" parent="Parallax2D3" unique_id=1518390062]
-position = Vector2(0, 5.0000005)
-scale = Vector2(1.2976785, 1.0424426)
-
-[node name="RedStars" type="Node2D" parent="Parallax2D3/Foreground" unique_id=1605399447]
-
-[node name="RedStar15" parent="Parallax2D3/Foreground/RedStars" unique_id=905922941 instance=ExtResource("11_ojyoj")]
-position = Vector2(446, 321)
-
-[node name="RedStar16" parent="Parallax2D3/Foreground/RedStars" unique_id=1043890651 instance=ExtResource("11_ojyoj")]
-
-[node name="RedStar17" parent="Parallax2D3/Foreground/RedStars" unique_id=1231516612 instance=ExtResource("11_ojyoj")]
-
-[node name="RedStar18" parent="Parallax2D3/Foreground/RedStars" unique_id=247918288 instance=ExtResource("11_ojyoj")]
-
-[node name="RedStar19" parent="Parallax2D3/Foreground/RedStars" unique_id=1741354006 instance=ExtResource("11_ojyoj")]
-
-[node name="RedStar20" parent="Parallax2D3/Foreground/RedStars" unique_id=1951658325 instance=ExtResource("11_ojyoj")]
-
-[node name="RedStar21" parent="Parallax2D3/Foreground/RedStars" unique_id=1110906056 instance=ExtResource("11_ojyoj")]
-position = Vector2(298, 462)
-
-[node name="RedStar22" parent="Parallax2D3/Foreground/RedStars" unique_id=2040184481 instance=ExtResource("11_ojyoj")]
-position = Vector2(799, 315)
-
-[node name="RedStar23" parent="Parallax2D3/Foreground/RedStars" unique_id=732585216 instance=ExtResource("11_ojyoj")]
-position = Vector2(914, 170)
-
-[node name="RedStar24" parent="Parallax2D3/Foreground/RedStars" unique_id=544815989 instance=ExtResource("11_ojyoj")]
-position = Vector2(225, 387)
-
-[node name="RedStar25" parent="Parallax2D3/Foreground/RedStars" unique_id=159316199 instance=ExtResource("11_ojyoj")]
-position = Vector2(127, 130)
-
-[node name="RedStar26" parent="Parallax2D3/Foreground/RedStars" unique_id=1098379604 instance=ExtResource("11_ojyoj")]
-position = Vector2(98, 399)
-
-[node name="RedStar27" parent="Parallax2D3/Foreground/RedStars" unique_id=1655523011 instance=ExtResource("11_ojyoj")]
-position = Vector2(611, 136)
-
-[node name="RedStar28" parent="Parallax2D3/Foreground/RedStars" unique_id=502581587 instance=ExtResource("11_ojyoj")]
-position = Vector2(410, -20)
-
-[node name="RedStar10" parent="Parallax2D3/Foreground/RedStars" unique_id=1096706361 instance=ExtResource("11_ojyoj")]
-position = Vector2(385, 212)
-
-[node name="RedStar9" parent="Parallax2D3/Foreground/RedStars" unique_id=1378889647 instance=ExtResource("11_ojyoj")]
-position = Vector2(129, 275)
-
-[node name="RedStar8" parent="Parallax2D3/Foreground/RedStars" unique_id=1374904870 instance=ExtResource("11_ojyoj")]
-position = Vector2(676, 398)
-
-[node name="RedStar7" parent="Parallax2D3/Foreground/RedStars" unique_id=1338792818 instance=ExtResource("11_ojyoj")]
-position = Vector2(722, -7)
-
-[node name="GreenStars" type="Node2D" parent="Parallax2D3/Foreground" unique_id=1520423594]
-
-[node name="GreenStar7" parent="Parallax2D3/Foreground/GreenStars" unique_id=1748263498 instance=ExtResource("12_ult31")]
-position = Vector2(504, 257)
-
-[node name="GreenStar6" parent="Parallax2D3/Foreground/GreenStars" unique_id=182734081 instance=ExtResource("12_ult31")]
-position = Vector2(589, 412)
-
-[node name="GreenStar5" parent="Parallax2D3/Foreground/GreenStars" unique_id=1887077258 instance=ExtResource("12_ult31")]
-position = Vector2(787, 609)
-
-[node name="GreenStar4" parent="Parallax2D3/Foreground/GreenStars" unique_id=2090682501 instance=ExtResource("12_ult31")]
-position = Vector2(240, 624)
-
-[node name="GreenStar3" parent="Parallax2D3/Foreground/GreenStars" unique_id=1894913621 instance=ExtResource("12_ult31")]
-position = Vector2(900, 495)
-
-[node name="GreenStar2" parent="Parallax2D3/Foreground/GreenStars" unique_id=962899331 instance=ExtResource("12_ult31")]
-position = Vector2(1136, 199)
-
-[node name="GreenStar" parent="Parallax2D3/Foreground/GreenStars" unique_id=213778075 instance=ExtResource("12_ult31")]
-position = Vector2(1001, 401)
+frame_progress = 0.0147454785

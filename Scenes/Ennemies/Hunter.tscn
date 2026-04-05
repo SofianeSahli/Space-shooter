@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://2rfelqlpgw7n"]
+
+[ext_resource type="Script" uid="uid://bufpix5w161is" path="res://scripts/Ennemies/Hunter.cs" id="1_40fbp"]
+[ext_resource type="Texture2D" uid="uid://dig3ua2fc8tna" path="res://arts/Ennemies/Kla'ed - Fighter - Base.png" id="2_6xs1j"]
+
+[node name="HunterObject" type="CharacterBody2D" unique_id=861522211 groups=["Hunntersa", "RadarDetectable"]]
+scale = Vector2(2, 2)
+disable_mode = 2
+collision_layer = 2
+collision_mask = 9
+script = ExtResource("1_40fbp")
+Speed = 1800.0
+Acceleration = 900.0
+ShootCooldown = 1.5
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1478887082]
+texture = ExtResource("2_6xs1j")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=85374044]
+light_mask = 2
+polygon = PackedVector2Array(-8, -4, -11, -10, -12, -8, -12, -2, -12, 5, -10, 7, -8, 7, -8, 2, -6, 2, -4, 3, -6, 5, -6, 10, -5, 11, -2, 9, 1, 9, 4, 10, 6, 10, 6, 5, 4, 4, 3, 5, 3, 2, 6, 1, 8, 2, 8, 7, 9, 8, 12, 6, 12, -9, 11, -10, 8, -8, 8, -3, 5, -3, 4, -5, 3, -7, 3, -10, 0, -11, -2, -10, -3, -7, -4, -6, -4, -4, -6, -3)
+disabled = true
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1494136441]
+collision_layer = 2
+collision_mask = 9
+input_pickable = false
+
+[node name="HitboxCollider" type="CollisionPolygon2D" parent="Hitbox" unique_id=1629238192]
+polygon = PackedVector2Array(-8, -4, -11, -10, -12, -8, -12, -2, -12, 5, -10, 7, -8, 7, -8, 2, -6, 2, -4, 3, -6, 5, -6, 10, -5, 11, -2, 9, 1, 9, 4, 10, 6, 10, 6, 5, 4, 4, 3, 5, 3, 2, 6, 1, 8, 2, 8, 7, 9, 8, 12, 6, 12, -9, 11, -10, 8, -8, 8, -3, 5, -3, 4, -5, 3, -7, 3, -10, 0, -11, -2, -10, -3, -7, -4, -6, -4, -4, -6, -3)
+
+[node name="Cannon" type="Marker2D" parent="." unique_id=260046049]
+position = Vector2(0, -13)
+
+[connection signal="body_entered" from="Hitbox" to="." method="OnBodyEntered"]

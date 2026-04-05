@@ -13,11 +13,41 @@
 
 [sub_resource type="Resource" id="Resource_02yp7"]
 resource_local_to_scene = true
+resource_name = "Stats"
 script = ExtResource("2_xliqn")
-Speed = 800.0
+Speed = 9000.0
 Acceleration = 900.0
-Friction = 900.0
+Friction = 0.5
+RotationSpeed = 2.0
 metadata/_custom_type_script = "uid://d10iglnkdck5e"
+
+[sub_resource type="Gradient" id="Gradient_y3d1d"]
+offsets = PackedFloat32Array(0, 0.17288135, 1)
+colors = PackedColorArray(0.75120795, 0.27132428, 0.10886929, 1, 0.6627451, 0.36078432, 0.05490196, 0.7137255, 0.7529412, 0.27058825, 0.10980392, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_jteuf"]
+gradient = SubResource("Gradient_y3d1d")
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_02yp7"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_y3d1d"]
+particle_flag_align_y = true
+particle_flag_rotate_y = true
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 3.0
+directional_velocity_min = 1.0
+directional_velocity_max = 1.0
+directional_velocity_curve = SubResource("CurveXYZTexture_02yp7")
+gravity = Vector3(0, 900, 0)
+radial_accel_min = -61.39
+radial_accel_max = -48.800003
+scale_min = 0.049999997
+scale_max = 0.9
+color_ramp = SubResource("GradientTexture1D_jteuf")
+turbulence_noise_speed = Vector3(0.1, 0, 0)
+turbulence_initial_displacement_min = -0.9999985
+turbulence_initial_displacement_max = -0.9999985
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_bloj5"]
 animations = [{
@@ -57,16 +87,34 @@ animations = [{
 script = ExtResource("1_uh6ap")
 Stats = SubResource("Resource_02yp7")
 
+[node name="FireTrails2" type="GPUParticles2D" parent="." unique_id=1494996156]
+position = Vector2(7, 4)
+amount = 2000
+amount_ratio = 0.7772
+lifetime = 0.5
+draw_order = 0
+trail_lifetime = 2.3299999999999996
+process_material = SubResource("ParticleProcessMaterial_y3d1d")
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=217995538]
+visible = false
 position = Vector2(-1.1920929e-07, 11.549376)
 scale = Vector2(0.9, 2.6197498)
 sprite_frames = SubResource("SpriteFrames_bloj5")
 animation = &"Boost"
-autoplay = "default"
-frame_progress = 0.2027363
-speed_scale = 3.0
+frame_progress = 0.8979429
+speed_scale = 2.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=276389270]
 position = Vector2(0, -0.9999999)
 scale = Vector2(0.8541666, 0.48633334)
 texture = ExtResource("1_kly74")
+
+[node name="FireTrails" type="GPUParticles2D" parent="." unique_id=1710212472]
+position = Vector2(-7, 5)
+amount = 2000
+amount_ratio = 0.7772
+lifetime = 0.5
+draw_order = 0
+trail_lifetime = 2.3299999999999996
+process_material = SubResource("ParticleProcessMaterial_y3d1d")

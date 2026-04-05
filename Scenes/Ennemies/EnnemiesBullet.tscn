@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://yr2uai08jhsh"]
+
+[ext_resource type="Script" uid="uid://dlbfvnciyempm" path="res://scripts/Player/Ammos/Bullet.cs" id="1_oxv5m"]
+[ext_resource type="Texture2D" uid="uid://c5utk07iirl0v" path="res://arts/Bullets/bullet_red.png" id="2_uxwvd"]
+
+[node name="BulletEnnemies" type="Area2D" unique_id=1043164617]
+collision_layer = 2
+collision_mask = 9
+script = ExtResource("1_oxv5m")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=845862290]
+texture = ExtResource("2_uxwvd")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1725874239]
+polygon = PackedVector2Array(3, -32, -1, -32, -8, -25, -12, -14, -6, 13, -1, 28, 4, 15, 11, 0, 12, -15, 8, -27, 4, -31)
+
+[connection signal="body_entered" from="." to="." method="CollisionDetected"]

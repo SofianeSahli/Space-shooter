@@ -1,38 +1,66 @@
 using Godot;
 using System;
-using System.Collections.Generic;
 
 public partial class Controls : Node2D
 {
-	private CharacterBody2D Player;
-	[Export] public float Speed;
-	[Export] public float Acceleration;
-	[Export] public float Friction;
-	private Marker2D Canon;
+	private PlayerObject Player;
+
+	[Signal] public delegate void ShootSignalEventHandler(float ChargePercent);
+	[Signal] public delegate void ChargeUpdatedEventHandler(float chargePercent);
+	[Signal] public delegate void BoostChangedEventHandler(float value, bool isCoolingDown);
+
 	[Signal]
-	public delegate void ShootSignalEventHandler(float ChargePercent);
+	public delegate void SpeedChangedEventHandler(float Spped);
 	private float currentCharge = 0f;
 	private float maxChargeTime = 2f;
 	private bool isCharging = false;
+
 	public bool IsDying { get; set; } = false;
 	private Engine engine;
-	[Signal]
-	public delegate void ChargeUpdatedEventHandler(float chargePercent);
+	private float lastBoostValue = -1f;
+	private bool lastCoolingState = false;
+
+
 	public override void _Ready()
 	{
-		Player = GetParent<CharacterBody2D>();
-		engine = Player.GetNode<Marker2D>("EngineMarker").FindChild("*", true, false) as Engine;
+		Player = GetParent<PlayerObject>();
+
+		engine = Player.GetNode<Marker2D>("EngineMarker")
+					   .FindChild("*", true, false) as Engine;
+
 		Player.GetNode<HealthIndicator>("HealthIndicator").ShouldDie += () =>
 		{
 			IsDying = true;
 		};
-		if (engine != null)
-		{
-			Speed = engine.Stats.Speed;
-			Friction = engine.Stats.Friction;
-			Acceleration = engine.Stats.Acceleration;
-		}
+
+
 	}
+
+	private void ReleaseAttack()
+	{
+		if (!isCharging) return;
+
+		isCharging = false;
+		float chargePercent = currentCharge / maxChargeTime;
+		EmitSignal(SignalName.ShootSignal, chargePercent);
+		currentCharge = 0f;
+	}
+
+	// ------------------- PHYSICS -------------------
+
+	public override void _PhysicsProcess(double delta)
+	{
+		if (Player == null || IsDying) return;
+
+		float dt = (float)delta;
+		HandleBoost(dt);
+		PhysicsHandling(dt);
+		float speedRatio = Player.Velocity.Length() / engine.Stats.Speed;
+
+		EmitSignal(SignalName.SpeedChanged, Math.Abs(speedRatio));
+
+	}
+	// ------------------- CHARGE SYSTEM -------------------
 
 	public override void _Process(double delta)
 	{
@@ -43,75 +71,167 @@ public partial class Controls : Node2D
 			float chargePercent = currentCharge / maxChargeTime;
 			EmitSignal(SignalName.ChargeUpdated, chargePercent);
 		}
+
 		if (Input.IsActionJustReleased("ui_accept"))
 		{
 			EmitSignal(SignalName.ChargeUpdated, 0f);
-
 			ReleaseAttack();
 		}
-
 	}
+	// ------------------- BOOST SYSTEM (HOLD BASED) -------------------
 
-public override void _PhysicsProcess(double delta)
-{
-    if (Player == null || IsDying) return;
-
-    float dt = (float)delta;
-    Vector2 velocity = Player.Velocity;
-
-    // 🔄 ROTATION (left/right)
-    float rotationInput = Input.GetAxis("ui_left", "ui_right");
-    Player.Rotation += rotationInput * 0.5f * dt;
-
-    // 🚀 FORWARD / BACKWARD (up/down)
-    float moveInput = Input.GetAxis("ui_down", "ui_up");
-
-    float maxSpeed = Speed;
-
-    if (moveInput != 0)
-    {
-        float currentSpeed = Speed;
-
-        // ⬇️ Slower when going backward
-        if (moveInput < 0)
-        {
-            currentSpeed /= 3f;
-            maxSpeed /= 3f;
-        }
-
-        // 🧭 Forward direction (based on rotation)
-        Vector2 forward = -Player.Transform.Y;
-
-        velocity = velocity.MoveToward(
-            forward * moveInput * currentSpeed,
-            Acceleration * dt
-        );
-    }
-    else
-    {
-        // 🧊 Apply friction when no input
-        velocity = velocity.MoveToward(Vector2.Zero, Friction * dt);
-    }
-
-    // 🚫 Clamp speed so it never exceeds max
-    velocity = velocity.LimitLength(maxSpeed);
-
-    Player.Velocity = velocity;
-
-    // 🎮 Optional: update engine animation
-    engine?.ChangeAnimation(velocity);
-
-    Player.MoveAndSlide();
-}
-
-	private void ReleaseAttack()
+	private void HandleBoost(float dt)
 	{
-		if (!isCharging) return;
-		isCharging = false;
-		float chargePercent = currentCharge / maxChargeTime;
-		EmitSignal(SignalName.ShootSignal, chargePercent);
-		currentCharge = 0f;
-	}
+		bool boostHeld = Input.IsActionPressed("Boost");
 
+		// Cooldown takes priority
+		if (engine.Stats.CooldownTimer > 0)
+		{
+			engine.Stats.CooldownTimer -= dt;
+			engine.Stats.IsBoosting = false;
+			return;
+		}
+		// 🔥 While boosting
+		if (boostHeld && engine.Stats.BoostEnergy > 0f)
+		{
+			engine.Stats.IsBoosting = true;
+			engine.Stats.BoostEnergy -= engine.Stats.DepletionRate * dt;
+			engine.Stats.RechargeDelayTimer = engine.Stats.RechargeDelay;
+
+			if (engine.Stats.BoostEnergy <= 0f)
+			{
+				engine.Stats.BoostEnergy = 0f;
+				engine.Stats.IsBoosting = false;
+				engine.Stats.CooldownTimer = engine.Stats.BoostCooldown;
+			}
+		}
+		else
+		{
+			engine.Stats.IsBoosting = false;
+
+			if (engine.Stats.RechargeDelayTimer > 0f)
+			{
+				engine.Stats.RechargeDelayTimer -= dt;
+			}
+			else
+			{
+				if (engine.Stats.BoostEnergy < engine.Stats.MaxBoostEnergy)
+				{
+					engine.Stats.BoostEnergy += engine.Stats.RechargeRate * dt;
+					engine.Stats.BoostEnergy = Mathf.Min(
+						engine.Stats.BoostEnergy,
+						engine.Stats.MaxBoostEnergy
+					);
+				}
+			}
+		}
+
+		BoostNotifier();
+	}
+	// ------------------- MOVEMENT -------------------
+
+	private void PhysicsHandling(float dt)
+	{
+		Vector2 velocity = Player.Velocity;
+
+		float rotationInput = Input.GetAxis("ui_left", "ui_right");
+		Player.Rotation += rotationInput * engine.Stats.RotationSpeed * dt;
+
+		float moveInput = Input.GetAxis("ui_down", "ui_up");
+		float maxSpeed = engine.Stats.Speed;
+
+		if (moveInput != 0)
+		{
+			float currentSpeed = engine.Stats.Speed;
+			float currentAcceleration = engine.Stats.Acceleration;
+
+			if (moveInput < 0)
+			{
+				currentSpeed /= 3f;
+				maxSpeed /= 3f;
+			}
+
+			if (engine.Stats.IsBoosting)
+			{
+				engine.UpdateAnimation(EngineData.BOOST_ANIMATION);
+				currentSpeed *= engine.Stats.BoostMultiplier;
+				maxSpeed *= engine.Stats.BoostMultiplier;
+				currentAcceleration *= engine.Stats.BoostAccelerationModifier;
+			}
+			else
+			{
+				engine.UpdateAnimation(EngineData.MOVING_ANIMATION);
+			}
+
+			Vector2 forward = -Player.Transform.Y;
+
+			if (engine.Stats.IsBoosting && moveInput > 0)
+			{
+				velocity += forward * 200f;
+			}
+
+			velocity = velocity.MoveToward(
+				forward * moveInput * currentSpeed,
+				currentAcceleration * dt
+			);
+		}
+		else
+		{
+			engine.UpdateAnimation("");
+			velocity = velocity.MoveToward(
+				Vector2.Zero,
+				engine.Stats.Friction * dt
+			);
+		}
+		velocity = velocity.LimitLength(maxSpeed);
+		Player.Velocity = velocity;
+		engine?.ChangeAnimation(velocity);
+		Player.MoveAndSlide();
+		ClampPlayerToBounds();
+	}
+	// ------------------- BOOST UI -------------------
+
+	private void ClampPlayerToBounds()
+	{
+		Vector2 pos = Player.GlobalPosition;
+
+		var bounds = GameManager.Instance.WorldBounds;
+
+		float padding = 50f;
+
+		float minX = bounds.Position.X + padding;
+		float maxX = bounds.Position.X + bounds.Size.X - padding;
+		float minY = bounds.Position.Y + padding;
+		float maxY = bounds.Position.Y + bounds.Size.Y - padding;
+
+		pos.X = Mathf.Clamp(pos.X, minX, maxX);
+		pos.Y = Mathf.Clamp(pos.Y, minY, maxY);
+
+		// Stop velocity when hitting edges
+		if (pos.X <= minX || pos.X >= maxX)
+		{
+			Player.Velocity = new Vector2(Player.Velocity.X, 0);
+
+		}
+		if (pos.Y <= minY || pos.Y >= maxY)
+		{
+			Player.Velocity = new Vector2(0, Player.Velocity.Y);
+
+		}
+
+		Player.GlobalPosition = pos;
+	}
+	private void BoostNotifier()
+	{
+		float newValue = engine.Stats.BoostEnergy / engine.Stats.MaxBoostEnergy;
+		bool isCooling = engine.Stats.CooldownTimer > 0;
+		if (Mathf.IsEqualApprox(newValue, lastBoostValue) && isCooling == lastCoolingState)
+			return;
+
+		lastBoostValue = newValue;
+		lastCoolingState = isCooling;
+
+		EmitSignal(SignalName.BoostChanged, newValue, isCooling);
+	}
 
 }
